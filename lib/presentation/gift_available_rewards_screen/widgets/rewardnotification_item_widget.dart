@@ -33,7 +33,7 @@ class RewardnotificationItemWidget extends StatelessWidget {
             child: Column(
               children: [
                 Text(
-                  "You Have an MZ reward",
+                  "You Have an AZ reward",
                   style: theme.textTheme.titleMedium,
                 ),
                 SizedBox(height: 3.v),

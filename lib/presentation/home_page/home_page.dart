@@ -1,3 +1,6 @@
+import 'package:get/get.dart';
+//import 'package:joel_s_application7/presentation/home_page/gogo.dart';
+
 import '../home_page/widgets/home_item_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:joel_s_application7/core/app_export.dart';
@@ -15,106 +18,134 @@ class HomePage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       home: SafeArea(
         child: Scaffold(
           backgroundColor: Colors.transparent,
           resizeToAvoidBottomInset: false,
-          body: SizedBox(
-            height: 730.v,
-            width: double.maxFinite,
-            child: Stack(alignment: Alignment.topCenter, children: [
-              Align(
-                  alignment: Alignment.center,
-                  child: Column(mainAxisSize: MainAxisSize.min, children: [
-                    SizedBox(
-                        height: 730.v,
-                        width: double.maxFinite,
-                        child: Stack(alignment: Alignment.center, children: [
-                          Align(
-                            alignment: Alignment.center,
-                            child: Container(
-                              height: 809.v,
-                              width: double.maxFinite,
-                              decoration: BoxDecoration(
-                                borderRadius: BorderRadius.circular(50.h),
-                                gradient: LinearGradient(
-                                  begin: Alignment(0, 0),
-                                  end: Alignment(1, 1),
-                                  colors: [
-                                    appTheme.lightBlueA700.withOpacity(0.65),
-                                    theme.colorScheme.onPrimaryContainer
-                                        .withOpacity(0.65)
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Align(
-                              alignment: Alignment.center,
-                              child: Padding(
-                                  padding:
-                                      EdgeInsets.symmetric(horizontal: 25.h),
-                                  child: Column(
-                                      mainAxisSize: MainAxisSize.min,
-                                      crossAxisAlignment:
-                                          CrossAxisAlignment.start,
-                                      children: [
-                                        _buildFormStack(context),
-                                        SizedBox(height: 15.v),
-                                        Container(
-                                            margin: EdgeInsets.only(
-                                                left: 9.h, right: 31.h),
-                                            decoration: BoxDecoration(
-                                                borderRadius: BorderRadiusStyle
-                                                    .roundedBorder10),
-                                            child: Row(
-                                                mainAxisSize: MainAxisSize.min,
-                                                children: [
-                                                  Column(children: [
-                                                    Text("Artist",
+          body: SingleChildScrollView(
+            child: GetBuilder<HomeController>(
+                init: HomeController(),
+                builder: (controller) {
+                  return SizedBox(
+                    height: 730.v,
+                    width: double.maxFinite,
+                    child: Stack(alignment: Alignment.topCenter, children: [
+                      Align(
+                          alignment: Alignment.center,
+                          child:
+                              Column(mainAxisSize: MainAxisSize.min, children: [
+                            SizedBox(
+                                height: 730.v,
+                                width: double.maxFinite,
+                                child: Stack(
+                                    alignment: Alignment.center,
+                                    children: [
+                                      Align(
+                                        alignment: Alignment.center,
+                                        child: Container(
+                                          height: 809.v,
+                                          width: double.maxFinite,
+                                          decoration: BoxDecoration(
+                                            //borderRadius: BorderRadius.circular(10.h),
+                                            gradient: LinearGradient(
+                                              begin: Alignment(0, 0),
+                                              end: Alignment(1, 1),
+                                              colors: [
+                                                appTheme.lightBlueA700
+                                                    .withOpacity(0.65),
+                                                theme.colorScheme
+                                                    .onPrimaryContainer
+                                                    .withOpacity(0.65)
+                                              ],
+                                            ),
+                                          ),
+                                        ),
+                                      ),
+                                      Align(
+                                          alignment: Alignment.center,
+                                          child: Padding(
+                                              padding: EdgeInsets.symmetric(
+                                                  horizontal: 25.h),
+                                              child: Column(
+                                                  mainAxisSize:
+                                                      MainAxisSize.min,
+                                                  crossAxisAlignment:
+                                                      CrossAxisAlignment.start,
+                                                  children: [
+                                                    _buildFormStack(context),
+                                                    SizedBox(height: 15.v),
+                                                    Container(
+                                                        margin: EdgeInsets.only(
+                                                            left: 9.h,
+                                                            right: 31.h),
+                                                        decoration: BoxDecoration(
+                                                            borderRadius:
+                                                                BorderRadiusStyle
+                                                                    .roundedBorder10),
+                                                        child: Row(
+                                                            mainAxisSize:
+                                                                MainAxisSize
+                                                                    .min,
+                                                            children: [
+                                                              Column(children: [
+                                                                Text("Artist",
+                                                                    style: theme
+                                                                        .textTheme
+                                                                        .titleSmall),
+                                                                Text(
+                                                                    "Name of Artist",
+                                                                    style: CustomTextStyles
+                                                                        .bodySmallWhiteA700_1)
+                                                              ]),
+                                                              Spacer(flex: 39),
+                                                              Column(children: [
+                                                                Text(
+                                                                    "Song Title",
+                                                                    style: theme
+                                                                        .textTheme
+                                                                        .titleSmall),
+                                                                Text(
+                                                                    "Title of song",
+                                                                    style: CustomTextStyles
+                                                                        .bodySmallWhiteA700_1)
+                                                              ]),
+                                                              Spacer(flex: 60),
+                                                              Column(children: [
+                                                                Text("Votes",
+                                                                    style: theme
+                                                                        .textTheme
+                                                                        .titleSmall),
+                                                                Text("20,000",
+                                                                    style: CustomTextStyles
+                                                                        .bodySmallWhiteA700_1)
+                                                              ])
+                                                            ])),
+                                                    SizedBox(height: 15.v),
+                                                    Text(
+                                                        "Fan Base Trending Videos",
                                                         style: theme.textTheme
                                                             .titleSmall),
-                                                    Text("Name of Artist",
-                                                        style: CustomTextStyles
-                                                            .bodySmallWhiteA700_1)
-                                                  ]),
-                                                  Spacer(flex: 39),
-                                                  Column(children: [
-                                                    Text("Song Title",
-                                                        style: theme.textTheme
-                                                            .titleSmall),
-                                                    Text("Title of song",
-                                                        style: CustomTextStyles
-                                                            .bodySmallWhiteA700_1)
-                                                  ]),
-                                                  Spacer(flex: 60),
-                                                  Column(children: [
-                                                    Text("Votes",
-                                                        style: theme.textTheme
-                                                            .titleSmall),
-                                                    Text("20,000",
-                                                        style: CustomTextStyles
-                                                            .bodySmallWhiteA700_1)
-                                                  ])
-                                                ])),
-                                        SizedBox(height: 15.v),
-                                        Text("Fan Base Trending Videos",
-                                            style: theme.textTheme.titleSmall),
-                                        SizedBox(height: 1.v),
-                                        _buildHome(context),
-                                        SizedBox(height: 15.v),
-                                        _buildFormRow(context)
-                                      ])))
-                        ])),
-                    _buildAppBar(context),
-                    Spacer()
-                  ])),
-              CustomImageView(
-                  imagePath: ImageConstant.imgGroup2,
-                  height: 753.v,
-                  width: 390.h,
-                  alignment: Alignment.topCenter)
-            ]),
+                                                    SizedBox(height: 1.v),
+                                                    _buildHome(context),
+                                                    SizedBox(height: 15.v),
+                                                    _buildFormRow(context)
+                                                  ])))
+                                    ])),
+                            _buildAppBar(context),
+                            Spacer()
+                          ])),
+                      CustomImageView(
+                          imagePath: ImageConstant.imgGroup2,
+                          height: 753.v,
+                          width: 390.h,
+                          alignment: Alignment.topCenter)
+                    ]),
+                  );
+                }
+
+                //
+                ),
           ),
         ),
       ),
@@ -637,3 +668,11 @@ class HomePage extends StatelessWidget {
     Navigator.pushNamed(context, AppRoutes.profilePageOneScreen);
   }
 }
+
+class HomeController extends GetxController {
+  // You can manage your state here, and use update() to trigger a rebuild.
+}
+
+
+
+//Second
