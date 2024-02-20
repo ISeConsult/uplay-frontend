@@ -1,12 +1,25 @@
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
+
+import '../controller/home_controller.dart';
+import '../models/home_item_model.dart';
 import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
 
 // ignore: must_be_immutable
 class HomeItemWidget extends StatelessWidget {
-  const HomeItemWidget({Key? key})
-      : super(
+  HomeItemWidget(
+    this.homeItemModelObj, {
+    Key? key,
+  }) : super(
           key: key,
         );
+
+  HomeItemModel homeItemModelObj;
+
+  var controller = Get.find<HomeController>();
 
   @override
   Widget build(BuildContext context) {
@@ -28,31 +41,35 @@ class HomeItemWidget extends StatelessWidget {
           child: Stack(
             alignment: Alignment.center,
             children: [
-              CustomImageView(
-                imagePath: ImageConstant.imgRetroMicrophon,
-                height: 80.v,
-                width: 140.h,
-                radius: BorderRadius.circular(
-                  10.h,
+              Obx(
+                () => CustomImageView(
+                  imagePath: homeItemModelObj.retroMicrophon!.value,
+                  height: 80.v,
+                  width: 140.h,
+                  radius: BorderRadius.circular(
+                    10.h,
+                  ),
+                  alignment: Alignment.center,
                 ),
-                alignment: Alignment.center,
               ),
               Align(
                 alignment: Alignment.center,
                 child: Container(
                   height: 40.adaptSize,
                   width: 40.adaptSize,
-                  decoration: AppDecoration.fillBlackC.copyWith(
+                  decoration: AppDecoration.fillBlack9004c1.copyWith(
                     borderRadius: BorderRadiusStyle.roundedBorder20,
                   ),
-                  child: CustomImageView(
-                    imagePath: ImageConstant.imgOverflowMenu,
-                    height: 40.adaptSize,
-                    width: 40.adaptSize,
-                    radius: BorderRadius.circular(
-                      20.h,
+                  child: Obx(
+                    () => CustomImageView(
+                      imagePath: homeItemModelObj.overflowMenu!.value,
+                      height: 40.adaptSize,
+                      width: 40.adaptSize,
+                      radius: BorderRadius.circular(
+                        20.h,
+                      ),
+                      alignment: Alignment.center,
                     ),
-                    alignment: Alignment.center,
                   ),
                 ),
               ),

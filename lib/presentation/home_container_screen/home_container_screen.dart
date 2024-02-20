@@ -1,49 +1,40 @@
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
-import 'package:joel_s_application7/presentation/contestants_page/contestants_page.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
 import 'package:joel_s_application7/presentation/home_page/home_page.dart';
+import 'package:joel_s_application7/routes/app_routes.dart';
 import 'package:joel_s_application7/widgets/custom_bottom_bar.dart';
 
-//
-class HomeContainerScreen extends StatelessWidget {
-  HomeContainerScreen({Key? key}) : super(key: key);
+import 'controller/home_container_controller.dart';
+import 'package:flutter/material.dart';
 
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+class HomeContainerScreen extends GetWidget<HomeContainerController> {
+  const HomeContainerScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        body: Navigator(
-            key: navigatorKey,
-            initialRoute: AppRoutes.homePage,
-            onGenerateRoute: (routeSetting) => PageRouteBuilder(
-                pageBuilder: (ctx, ani, ani1) =>
-                    getCurrentPage(routeSetting.name!),
-                transitionDuration: Duration(seconds: 0))),
-        bottomNavigationBar: _buildBottomBar(context),
-      ),
-    );
+        child: Scaffold(
+            body: Navigator(
+                key: Get.nestedKey(1),
+                initialRoute: AppRoutes.homePage,
+                onGenerateRoute: (routeSetting) => GetPageRoute(
+                    page: () => getCurrentPage(routeSetting.name!),
+                    transition: Transition.noTransition)),
+            bottomNavigationBar: _buildBottomBar()));
   }
 
   /// Section Widget
-  Widget _buildBottomBar(BuildContext context) {
+  Widget _buildBottomBar() {
     return CustomBottomBar(onChanged: (BottomBarEnum type) {
-      Navigator.pushNamed(navigatorKey.currentContext!, getCurrentRoute(type));
+      Get.toNamed(getCurrentRoute(type), id: 1);
     });
   }
 
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Settings:
+      case BottomBarEnum.Home:
         return AppRoutes.homePage;
-      case BottomBarEnum.User:
-        return AppRoutes.contestantsPage;
-      case BottomBarEnum.Thumbsup:
-        return "/";
-      case BottomBarEnum.Info:
-        return "/";
       default:
         return "/";
     }
@@ -54,8 +45,6 @@ class HomeContainerScreen extends StatelessWidget {
     switch (currentRoute) {
       case AppRoutes.homePage:
         return HomePage();
-      case AppRoutes.contestantsPage:
-        return ContestantsPage();
       default:
         return DefaultWidget();
     }

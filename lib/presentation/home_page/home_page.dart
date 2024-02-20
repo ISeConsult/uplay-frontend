@@ -1,306 +1,439 @@
 import 'package:get/get.dart';
-//import 'package:joel_s_application7/presentation/home_page/gogo.dart';
-
-import '../home_page/widgets/home_item_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/routes/app_routes.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import 'package:joel_s_application7/widgets/app_bar/appbar_title_searchview.dart';
 import 'package:joel_s_application7/widgets/app_bar/appbar_trailing_iconbutton_one.dart';
 import 'package:joel_s_application7/widgets/app_bar/custom_app_bar.dart';
 import 'package:joel_s_application7/widgets/custom_icon_button.dart';
-import '../home_page/widgets/home_item_widget.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 
+import '../home_page/widgets/home_item_widget.dart';
+import 'controller/home_controller.dart';
+import 'models/home_item_model.dart';
+import 'models/home_model.dart';
+import 'package:flutter/material.dart';
+
+// ignore_for_file: must_be_immutable
 class HomePage extends StatelessWidget {
   HomePage({Key? key}) : super(key: key);
 
-  TextEditingController searchController = TextEditingController();
+  HomeController controller = Get.put(HomeController(HomeModel().obs));
 
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      home: SafeArea(
+    return SafeArea(
         child: Scaffold(
-          backgroundColor: Colors.transparent,
-          resizeToAvoidBottomInset: false,
-          body: SingleChildScrollView(
-            child: GetBuilder<HomeController>(
-                init: HomeController(),
-                builder: (controller) {
-                  return SizedBox(
-                    height: 730.v,
-                    width: double.maxFinite,
-                    child: Stack(alignment: Alignment.topCenter, children: [
-                      Align(
-                          alignment: Alignment.center,
-                          child:
-                              Column(mainAxisSize: MainAxisSize.min, children: [
-                            SizedBox(
-                                height: 730.v,
-                                width: double.maxFinite,
-                                child: Stack(
-                                    alignment: Alignment.center,
-                                    children: [
-                                      Align(
-                                        alignment: Alignment.center,
-                                        child: Container(
-                                          height: 809.v,
-                                          width: double.maxFinite,
-                                          decoration: BoxDecoration(
-                                            //borderRadius: BorderRadius.circular(10.h),
-                                            gradient: LinearGradient(
+            resizeToAvoidBottomInset: false,
+            backgroundColor: Colors.transparent,
+            body: SizedBox(
+                height: 730.v,
+                width: double.maxFinite,
+                child: Stack(alignment: Alignment.topCenter, children: [
+                  Align(
+                      alignment: Alignment.center,
+                      child: Column(mainAxisSize: MainAxisSize.min, children: [
+                        SizedBox(
+                            height: 730.v,
+                            width: double.maxFinite,
+                            child:
+                                Stack(alignment: Alignment.center, children: [
+                              Align(
+                                  alignment: Alignment.center,
+                                  child: Container(
+                                      height: 809.v,
+                                      width: double.maxFinite,
+                                      decoration: BoxDecoration(
+                                          gradient: LinearGradient(
                                               begin: Alignment(0, 0),
                                               end: Alignment(1, 1),
                                               colors: [
-                                                appTheme.lightBlueA700
-                                                    .withOpacity(0.65),
-                                                theme.colorScheme
-                                                    .onPrimaryContainer
-                                                    .withOpacity(0.65)
-                                              ],
-                                            ),
-                                          ),
-                                        ),
-                                      ),
-                                      Align(
-                                          alignment: Alignment.center,
-                                          child: Padding(
-                                              padding: EdgeInsets.symmetric(
-                                                  horizontal: 25.h),
-                                              child: Column(
-                                                  mainAxisSize:
-                                                      MainAxisSize.min,
-                                                  crossAxisAlignment:
-                                                      CrossAxisAlignment.start,
-                                                  children: [
-                                                    _buildFormStack(context),
-                                                    SizedBox(height: 15.v),
-                                                    Container(
-                                                        margin: EdgeInsets.only(
-                                                            left: 9.h,
-                                                            right: 31.h),
-                                                        decoration: BoxDecoration(
-                                                            borderRadius:
-                                                                BorderRadiusStyle
-                                                                    .roundedBorder10),
-                                                        child: Row(
-                                                            mainAxisSize:
-                                                                MainAxisSize
-                                                                    .min,
-                                                            children: [
-                                                              Column(children: [
-                                                                Text("Artist",
-                                                                    style: theme
-                                                                        .textTheme
-                                                                        .titleSmall),
-                                                                Text(
-                                                                    "Name of Artist",
-                                                                    style: CustomTextStyles
-                                                                        .bodySmallWhiteA700_1)
-                                                              ]),
-                                                              Spacer(flex: 39),
-                                                              Column(children: [
-                                                                Text(
-                                                                    "Song Title",
-                                                                    style: theme
-                                                                        .textTheme
-                                                                        .titleSmall),
-                                                                Text(
-                                                                    "Title of song",
-                                                                    style: CustomTextStyles
-                                                                        .bodySmallWhiteA700_1)
-                                                              ]),
-                                                              Spacer(flex: 60),
-                                                              Column(children: [
-                                                                Text("Votes",
-                                                                    style: theme
-                                                                        .textTheme
-                                                                        .titleSmall),
-                                                                Text("20,000",
-                                                                    style: CustomTextStyles
-                                                                        .bodySmallWhiteA700_1)
-                                                              ])
-                                                            ])),
-                                                    SizedBox(height: 15.v),
-                                                    Text(
-                                                        "Fan Base Trending Videos",
-                                                        style: theme.textTheme
-                                                            .titleSmall),
-                                                    SizedBox(height: 1.v),
-                                                    _buildHome(context),
-                                                    SizedBox(height: 15.v),
-                                                    _buildFormRow(context)
-                                                  ])))
-                                    ])),
-                            _buildAppBar(context),
-                            Spacer()
-                          ])),
-                      CustomImageView(
-                          imagePath: ImageConstant.imgGroup2,
-                          height: 753.v,
-                          width: 390.h,
-                          alignment: Alignment.topCenter)
-                    ]),
-                  );
-                }
-
-                //
-                ),
-          ),
-        ),
-      ),
-    );
+                                            appTheme.lightBlueA700
+                                                .withOpacity(0.65),
+                                            theme.colorScheme.primary
+                                                .withOpacity(0.65)
+                                          ])))),
+                              Align(
+                                  alignment: Alignment.center,
+                                  child: Padding(
+                                      padding: EdgeInsets.symmetric(
+                                          horizontal: 25.h),
+                                      child: Column(
+                                          mainAxisSize: MainAxisSize.min,
+                                          crossAxisAlignment:
+                                              CrossAxisAlignment.start,
+                                          children: [
+                                            _buildForm(),
+                                            SizedBox(height: 15.v),
+                                            Container(
+                                                margin: EdgeInsets.only(
+                                                    left: 9.h, right: 31.h),
+                                                decoration: BoxDecoration(
+                                                    borderRadius:
+                                                        BorderRadiusStyle
+                                                            .roundedBorder10),
+                                                child: Row(
+                                                    mainAxisSize:
+                                                        MainAxisSize.min,
+                                                    children: [
+                                                      Column(children: [
+                                                        Text("lbl_artist".tr,
+                                                            style: theme
+                                                                .textTheme
+                                                                .titleSmall),
+                                                        Text(
+                                                            "lbl_name_of_artist"
+                                                                .tr,
+                                                            style: CustomTextStyles
+                                                                .bodySmallWhiteA700_1)
+                                                      ]),
+                                                      Spacer(flex: 39),
+                                                      Column(children: [
+                                                        Text(
+                                                            "lbl_song_title".tr,
+                                                            style: theme
+                                                                .textTheme
+                                                                .titleSmall),
+                                                        Text(
+                                                            "lbl_title_of_song"
+                                                                .tr,
+                                                            style: CustomTextStyles
+                                                                .bodySmallWhiteA700_1)
+                                                      ]),
+                                                      Spacer(flex: 60),
+                                                      Column(children: [
+                                                        Text("lbl_votes".tr,
+                                                            style: theme
+                                                                .textTheme
+                                                                .titleSmall),
+                                                        Text("lbl_20_000".tr,
+                                                            style: CustomTextStyles
+                                                                .bodySmallWhiteA700_1)
+                                                      ])
+                                                    ])),
+                                            SizedBox(height: 15.v),
+                                            Text("msg_fan_base_trending".tr,
+                                                style:
+                                                    theme.textTheme.titleSmall),
+                                            SizedBox(height: 1.v),
+                                            _buildHome(),
+                                            SizedBox(height: 15.v),
+                                            _buildForm2()
+                                          ])))
+                            ])),
+                        _buildAppBar(),
+                        Spacer()
+                      ])),
+                  CustomImageView(
+                      imagePath: ImageConstant.imgGroup2,
+                      height: 753.v,
+                      width: 390.h,
+                      alignment: Alignment.topCenter)
+                ]))));
   }
 
   /// Section Widget
-  Widget _buildFormStack(BuildContext context) {
-    return Card(
-      clipBehavior: Clip.antiAlias,
-      elevation: 0,
-      margin: EdgeInsets.all(0),
-      shape: RoundedRectangleBorder(
-          borderRadius: BorderRadiusStyle.roundedBorder10),
-      child: Container(
-        height: 220.v,
-        width: 340.h,
-        decoration:
-            BoxDecoration(borderRadius: BorderRadiusStyle.roundedBorder10),
-        child: Stack(
-          alignment: Alignment.center,
-          children: [
-            CustomImageView(
-                imagePath: ImageConstant.imgRetroMicrophon,
-                height: 220.v,
-                width: 340.h,
-                radius: BorderRadius.circular(10.h),
-                alignment: Alignment.center),
-            Align(
-              alignment: Alignment.center,
-              child: Padding(
-                padding: EdgeInsets.symmetric(horizontal: 7.h),
-                child: Column(
-                  mainAxisSize: MainAxisSize.min,
-                  children: [
-                    CustomIconButton(
-                        height: 35.adaptSize,
-                        width: 35.adaptSize,
-                        padding: EdgeInsets.all(7.h),
-                        decoration: IconButtonStyleHelper.fillBlackC,
-                        alignment: Alignment.centerRight,
-                        onTap: () {
-                          onTapBtnGiftIcon(context);
-                        },
-                        child: CustomImageView(
-                            imagePath: ImageConstant.imgGiftIcon)),
-                    SizedBox(height: 41.v),
-                    Container(
-                        height: 40.adaptSize,
-                        width: 40.adaptSize,
-                        decoration: AppDecoration.fillBlackC.copyWith(
-                            borderRadius: BorderRadiusStyle.roundedBorder20),
-                        child: CustomImageView(
-                            imagePath: ImageConstant.imgOverflowMenu,
-                            height: 40.adaptSize,
-                            width: 40.adaptSize,
-                            radius: BorderRadius.circular(20.h),
-                            alignment: Alignment.center)),
-                    SizedBox(height: 47.v),
-                    Row(
+  Widget _buildForm() {
+    return SingleChildScrollView(
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 0,
+        margin: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+            borderRadius: BorderRadiusStyle.roundedBorder10),
+        child: Container(
+          height: 220.v,
+          width: 340.h,
+          decoration:
+              BoxDecoration(borderRadius: BorderRadiusStyle.roundedBorder10),
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              CustomImageView(
+                  imagePath: ImageConstant.imgRetroMicrophon,
+                  height: 220.v,
+                  width: 340.h,
+                  radius: BorderRadius.circular(10.h),
+                  alignment: Alignment.center),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 7.h),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CustomIconButton(
+                          height: 35.adaptSize,
+                          width: 35.adaptSize,
+                          padding: EdgeInsets.all(7.h),
+                          decoration: IconButtonStyleHelper.fillBlackC,
+                          alignment: Alignment.centerRight,
+                          onTap: () {
+                            onTapBtnGiftIcon();
+                          },
+                          child: CustomImageView(
+                              imagePath: ImageConstant.imgGiftIcon)),
+                      SizedBox(height: 41.v),
+                      Container(
+                          height: 40.adaptSize,
+                          width: 40.adaptSize,
+                          decoration: AppDecoration.fillBlack9004c1.copyWith(
+                              borderRadius: BorderRadiusStyle.roundedBorder20),
+                          child: CustomImageView(
+                              imagePath: ImageConstant.imgOverflowMenu,
+                              height: 40.adaptSize,
+                              width: 40.adaptSize,
+                              radius: BorderRadius.circular(20.h),
+                              alignment: Alignment.center)),
+                      SizedBox(height: 47.v),
+                      Row(
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           GestureDetector(
                               onTap: () {
-                                onTapFrameNineteen(context);
+                                onTapFrameNineteen();
                               },
                               child: Container(
                                   height: 35.v,
                                   width: 47.h,
                                   padding: EdgeInsets.symmetric(
                                       horizontal: 9.h, vertical: 6.v),
-                                  decoration: AppDecoration.fillBlackC.copyWith(
-                                      borderRadius:
-                                          BorderRadiusStyle.roundedBorder10),
+                                  decoration: AppDecoration.fillBlack9004c1
+                                      .copyWith(
+                                          borderRadius: BorderRadiusStyle
+                                              .roundedBorder10),
                                   child: CustomImageView(
                                       imagePath: ImageConstant.imgVoteIcon,
                                       height: 22.v,
                                       width: 27.h,
                                       alignment: Alignment.center))),
                           Container(
-                              padding: EdgeInsets.symmetric(vertical: 8.v),
-                              decoration: AppDecoration.fillBlackC.copyWith(
-                                  borderRadius:
-                                      BorderRadiusStyle.roundedBorder10),
-                              child: Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    SizedBox(
-                                        height: 18.v,
-                                        width: 94.h,
-                                        child: Stack(
+                            padding: EdgeInsets.symmetric(vertical: 8.v),
+                            decoration: AppDecoration.fillBlack9004c1.copyWith(
+                                borderRadius:
+                                    BorderRadiusStyle.roundedBorder10),
+                            child: Row(
+                              mainAxisAlignment: MainAxisAlignment.end,
+                              children: [
+                                SizedBox(
+                                    height: 18.v,
+                                    width: 94.h,
+                                    child: Stack(
+                                        alignment: Alignment.center,
+                                        children: [
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Container(
+                                                  height: 18.v,
+                                                  width: 94.h,
+                                                  decoration: BoxDecoration())),
+                                          Align(
+                                              alignment: Alignment.center,
+                                              child: Text("lbl_vcash_2000".tr,
+                                                  style: CustomTextStyles
+                                                      .labelLargeWhiteA700))
+                                        ])),
+                                Container(
+                                  height: 18.v,
+                                  width: 76.h,
+                                  margin: EdgeInsets.only(left: 10.h),
+                                  child: Stack(
+                                      alignment: Alignment.center,
+                                      children: [
+                                        Align(
                                             alignment: Alignment.center,
-                                            children: [
-                                              Align(
-                                                  alignment: Alignment.center,
-                                                  child: Container(
-                                                      height: 18.v,
-                                                      width: 94.h,
-                                                      decoration:
-                                                          BoxDecoration())),
-                                              Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text("Vcash: 2000",
-                                                      style: CustomTextStyles
-                                                          .labelLargeWhiteA700))
-                                            ])),
-                                    Container(
-                                        height: 18.v,
-                                        width: 76.h,
-                                        margin: EdgeInsets.only(left: 10.h),
-                                        child: Stack(
+                                            child: Container(
+                                                height: 18.v,
+                                                width: 76.h,
+                                                decoration: BoxDecoration())),
+                                        Align(
                                             alignment: Alignment.center,
-                                            children: [
-                                              Align(
-                                                  alignment: Alignment.center,
-                                                  child: Container(
-                                                      height: 18.v,
-                                                      width: 76.h,
-                                                      decoration:
-                                                          BoxDecoration())),
-                                              Align(
-                                                  alignment: Alignment.center,
-                                                  child: Text("BFV: 2000",
-                                                      style: CustomTextStyles
-                                                          .labelLargeWhiteA700))
-                                            ]))
-                                  ]))
-                        ])
-                  ],
+                                            child: Text("lbl_bfv_2000".tr,
+                                                style: CustomTextStyles
+                                                    .labelLargeWhiteA700))
+                                      ]),
+                                ),
+                              ],
+                            ),
+                          ),
+                        ],
+                      ),
+                    ],
+                  ),
                 ),
               ),
-            )
-          ],
+            ],
+          ),
         ),
       ),
     );
+    //
+
+    //
+    // Widget _buildForm() {
+    //   return ListView(
+    //     scrollDirection: Axis.horizontal,
+    //     children: [
+    //       Card(
+    //         clipBehavior: Clip.antiAlias,
+    //         elevation: 0,
+    //         margin: EdgeInsets.all(0),
+    //         shape: RoundedRectangleBorder(
+    //             borderRadius: BorderRadiusStyle.roundedBorder10),
+    //         child: Container(
+    //           height: 220.v,
+    //           width: 340.h,
+    //           decoration:
+    //               BoxDecoration(borderRadius: BorderRadiusStyle.roundedBorder10),
+    //           child: Stack(
+    //             alignment: Alignment.center,
+    //             children: [
+    //               CustomImageView(
+    //                   imagePath: ImageConstant.imgRetroMicrophon,
+    //                   height: 220.v,
+    //                   width: 340.h,
+    //                   radius: BorderRadius.circular(10.h),
+    //                   alignment: Alignment.center),
+    //               Align(
+    //                 alignment: Alignment.center,
+    //                 child: Padding(
+    //                   padding: EdgeInsets.symmetric(horizontal: 7.h),
+    //                   child: Column(
+    //                     mainAxisSize: MainAxisSize.min,
+    //                     children: [
+    //                       CustomIconButton(
+    //                           height: 35.adaptSize,
+    //                           width: 35.adaptSize,
+    //                           padding: EdgeInsets.all(7.h),
+    //                           decoration: IconButtonStyleHelper.fillBlackC,
+    //                           alignment: Alignment.centerRight,
+    //                           onTap: () {
+    //                             onTapBtnGiftIcon();
+    //                           },
+    //                           child: CustomImageView(
+    //                               imagePath: ImageConstant.imgGiftIcon)),
+    //                       SizedBox(height: 41.v),
+    //                       Container(
+    //                           height: 40.adaptSize,
+    //                           width: 40.adaptSize,
+    //                           decoration: AppDecoration.fillBlack9004c1.copyWith(
+    //                               borderRadius:
+    //                                   BorderRadiusStyle.roundedBorder20),
+    //                           child: CustomImageView(
+    //                               imagePath: ImageConstant.imgOverflowMenu,
+    //                               height: 40.adaptSize,
+    //                               width: 40.adaptSize,
+    //                               radius: BorderRadius.circular(20.h),
+    //                               alignment: Alignment.center)),
+    //                       SizedBox(height: 47.v),
+    //                       Row(
+    //                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    //                         children: [
+    //                           GestureDetector(
+    //                               onTap: () {
+    //                                 onTapFrameNineteen();
+    //                               },
+    //                               child: Container(
+    //                                   height: 35.v,
+    //                                   width: 47.h,
+    //                                   padding: EdgeInsets.symmetric(
+    //                                       horizontal: 9.h, vertical: 6.v),
+    //                                   decoration: AppDecoration.fillBlack9004c1
+    //                                       .copyWith(
+    //                                           borderRadius: BorderRadiusStyle
+    //                                               .roundedBorder10),
+    //                                   child: CustomImageView(
+    //                                       imagePath: ImageConstant.imgVoteIcon,
+    //                                       height: 22.v,
+    //                                       width: 27.h,
+    //                                       alignment: Alignment.center))),
+    //                           Container(
+    //                             padding: EdgeInsets.symmetric(vertical: 8.v),
+    //                             decoration: AppDecoration.fillBlack9004c1
+    //                                 .copyWith(
+    //                                     borderRadius:
+    //                                         BorderRadiusStyle.roundedBorder10),
+    //                             child: Row(
+    //                               mainAxisAlignment: MainAxisAlignment.end,
+    //                               children: [
+    //                                 SizedBox(
+    //                                     height: 18.v,
+    //                                     width: 94.h,
+    //                                     child: Stack(
+    //                                         alignment: Alignment.center,
+    //                                         children: [
+    //                                           Align(
+    //                                               alignment: Alignment.center,
+    //                                               child: Container(
+    //                                                   height: 18.v,
+    //                                                   width: 94.h,
+    //                                                   decoration:
+    //                                                       BoxDecoration())),
+    //                                           Align(
+    //                                               alignment: Alignment.center,
+    //                                               child: Text("lbl_vcash_2000".tr,
+    //                                                   style: CustomTextStyles
+    //                                                       .labelLargeWhiteA700))
+    //                                         ])),
+    //                                 Container(
+    //                                   height: 18.v,
+    //                                   width: 76.h,
+    //                                   margin: EdgeInsets.only(left: 10.h),
+    //                                   child: Stack(
+    //                                       alignment: Alignment.center,
+    //                                       children: [
+    //                                         Align(
+    //                                             alignment: Alignment.center,
+    //                                             child: Container(
+    //                                                 height: 18.v,
+    //                                                 width: 76.h,
+    //                                                 decoration: BoxDecoration())),
+    //                                         Align(
+    //                                             alignment: Alignment.center,
+    //                                             child: Text("lbl_bfv_2000".tr,
+    //                                                 style: CustomTextStyles
+    //                                                     .labelLargeWhiteA700))
+    //                                       ]),
+    //                                 ),
+    //                               ],
+    //                             ),
+    //                           ),
+    //                         ],
+    //                       ),
+    //                     ],
+    //                   ),
+    //                 ),
+    //               ),
+    //             ],
+    //           ),
+    //         ),
+    //       ),
+    //     ],
+    //   );
   }
 
   /// Section Widget
-  Widget _buildHome(BuildContext context) {
+  Widget _buildHome() {
     return SizedBox(
         height: 80.v,
-        child: ListView.separated(
+        child: Obx(() => ListView.separated(
             scrollDirection: Axis.horizontal,
             separatorBuilder: (context, index) {
               return SizedBox(width: 10.h);
             },
-            itemCount: 3,
+            itemCount: controller.homeModelObj.value.homeItemList.value.length,
             itemBuilder: (context, index) {
-              return HomeItemWidget();
-            }));
+              HomeItemModel model =
+                  controller.homeModelObj.value.homeItemList.value[index];
+              return HomeItemWidget(model);
+            })));
   }
 
   /// Section Widget
-  Widget _buildFormColumn(BuildContext context) {
+  Widget _buildForm1() {
     return Expanded(
         child: Container(
             margin: EdgeInsets.only(right: 7.h),
@@ -308,7 +441,8 @@ class HomePage extends StatelessWidget {
                 BoxDecoration(borderRadius: BorderRadiusStyle.roundedBorder10),
             child:
                 Column(crossAxisAlignment: CrossAxisAlignment.start, children: [
-              Text("Regions & Reps", style: CustomTextStyles.titleSmallGray50),
+              Text("lbl_regions_reps".tr,
+                  style: CustomTextStyles.titleSmallGray50),
               SizedBox(height: 3.v),
               Container(
                   padding:
@@ -320,19 +454,24 @@ class HomePage extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         SizedBox(height: 4.v),
-                        _buildRegionRow(context,
-                            regionText: "Region 1 ",
-                            arrowIcon: ImageConstant.imgArrowUp),
+                        _buildFrameFive(
+                            regionCounter: "lbl_region_1".tr,
+                            arrowDown: ImageConstant.imgArrowUp),
                         SizedBox(height: 2.v),
-                        _buildArtistStack(context, artistName: "Artist name"),
+                        _buildFrameThirtyNine(
+                            artistName: "lbl_artist_name2".tr),
                         SizedBox(height: 4.v),
-                        _buildArtistStack(context, artistName: "Artist name"),
+                        _buildFrameThirtyNine(
+                            artistName: "lbl_artist_name2".tr),
                         SizedBox(height: 4.v),
-                        _buildArtistStack(context, artistName: "Artist name"),
+                        _buildFrameThirtyNine(
+                            artistName: "lbl_artist_name2".tr),
                         SizedBox(height: 4.v),
-                        _buildArtistStack(context, artistName: "Artist name"),
+                        _buildFrameThirtyNine(
+                            artistName: "lbl_artist_name2".tr),
                         SizedBox(height: 4.v),
-                        _buildArtistStack(context, artistName: "Artist name"),
+                        _buildFrameThirtyNine(
+                            artistName: "lbl_artist_name2".tr),
                         SizedBox(height: 3.v),
                         SizedBox(
                             height: 9.v,
@@ -341,26 +480,21 @@ class HomePage extends StatelessWidget {
                                 alignment: Alignment.centerLeft,
                                 children: [
                                   Align(
-                                    alignment: Alignment.bottomCenter,
-                                    child: Container(
-                                      height: 8.v,
-                                      width: 142.h,
-                                      decoration: BoxDecoration(
-                                        border: Border(
-                                          bottom: BorderSide(
-                                              color: appTheme.whiteA700
-                                                  .withOpacity(0.05),
-                                              width: 1.h),
-                                        ),
-                                      ),
-                                    ),
-                                  ),
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                          height: 8.v,
+                                          width: 142.h,
+                                          decoration: BoxDecoration(
+                                              border: Border(
+                                                  bottom: BorderSide(
+                                                      color: appTheme.whiteA700
+                                                          .withOpacity(0.05),
+                                                      width: 1.h))))),
                                   Align(
-                                    alignment: Alignment.centerLeft,
-                                    child: Text("Artist name",
-                                        style: CustomTextStyles
-                                            .bodySmallWhiteA700),
-                                  ),
+                                      alignment: Alignment.centerLeft,
+                                      child: Text("lbl_artist_name2".tr,
+                                          style: CustomTextStyles
+                                              .bodySmallWhiteA700)),
                                   CustomImageView(
                                       imagePath:
                                           ImageConstant.imgVoteIconGray50,
@@ -383,10 +517,10 @@ class HomePage extends StatelessWidget {
                         Column(
                             crossAxisAlignment: CrossAxisAlignment.start,
                             children: [
-                              Text("Region 2",
+                              Text("lbl_region_2".tr,
                                   style: CustomTextStyles
                                       .labelLargeWhiteA700SemiBold),
-                              Text("12 Contestants",
+                              Text("lbl_12_contestants".tr,
                                   style: CustomTextStyles.bodySmallWhiteA700)
                             ]),
                         CustomImageView(
@@ -404,23 +538,23 @@ class HomePage extends StatelessWidget {
                       mainAxisSize: MainAxisSize.min,
                       crossAxisAlignment: CrossAxisAlignment.start,
                       children: [
-                        _buildRegionRow(context,
-                            regionText: "Region 3",
-                            arrowIcon: ImageConstant.imgArrowDown),
+                        _buildFrameFive(
+                            regionCounter: "lbl_region_3".tr,
+                            arrowDown: ImageConstant.imgArrowDown),
                         SizedBox(height: 12.v),
-                        Text("12 Contestants",
+                        Text("lbl_12_contestants".tr,
                             style: CustomTextStyles.bodySmallWhiteA700)
                       ]))
             ])));
   }
 
   /// Section Widget
-  Widget _buildFormRow(BuildContext context) {
+  Widget _buildForm2() {
     return Container(
         decoration:
             BoxDecoration(borderRadius: BorderRadiusStyle.roundedBorder10),
         child: Row(mainAxisAlignment: MainAxisAlignment.center, children: [
-          _buildFormColumn(context),
+          _buildForm1(),
           Expanded(
               child: Container(
                   margin: EdgeInsets.only(left: 7.h),
@@ -455,7 +589,8 @@ class HomePage extends StatelessWidget {
                                               Align(
                                                   alignment:
                                                       Alignment.topCenter,
-                                                  child: Text("My Artist",
+                                                  child: Text(
+                                                      "lbl_my_artist".tr,
                                                       style: theme.textTheme
                                                           .titleSmall)),
                                               Align(
@@ -464,7 +599,8 @@ class HomePage extends StatelessWidget {
                                                   child: Padding(
                                                       padding: EdgeInsets.only(
                                                           top: 15.v),
-                                                      child: Text("Artist Name",
+                                                      child: Text(
+                                                          "lbl_artist_name".tr,
                                                           style: theme.textTheme
                                                               .bodySmall))),
                                               Align(
@@ -473,17 +609,18 @@ class HomePage extends StatelessWidget {
                                                   child: Padding(
                                                       padding: EdgeInsets.only(
                                                           bottom: 15.v),
-                                                      child: Text("Genre",
+                                                      child: Text(
+                                                          "lbl_genre".tr,
                                                           style: theme.textTheme
                                                               .bodySmall))),
                                               Align(
                                                   alignment:
                                                       Alignment.bottomCenter,
-                                                  child: Text("Votes",
+                                                  child: Text("lbl_votes".tr,
                                                       style: theme.textTheme
                                                           .titleSmall))
                                             ])),
-                                    Text("8000",
+                                    Text("lbl_8000".tr,
                                         style: theme.textTheme.bodySmall)
                                   ])
                                 ])),
@@ -492,29 +629,27 @@ class HomePage extends StatelessWidget {
                             opacity: 0.9,
                             child: Padding(
                                 padding: EdgeInsets.only(left: 2.h),
-                                child: Text("Top 5",
+                                child: Text("lbl_top_5".tr,
                                     style:
                                         CustomTextStyles.titleSmallGray50_1))),
                         SizedBox(height: 2.v),
                         Padding(
                             padding: EdgeInsets.only(left: 2.h),
-                            child: _buildFrameTwentyNineRow(context,
-                                artistName: "Name Artist",
-                                searchIcon:
-                                    ImageConstant.imgSearchBlueGray100)),
+                            child: _buildFrameTwentyNine(
+                                nameArtist: "lbl_name_artist".tr,
+                                search: ImageConstant.imgSearchBlueGray100)),
                         SizedBox(height: 5.v),
                         Padding(
                             padding: EdgeInsets.only(left: 2.h),
-                            child: _buildFrameTwentyNineRow(context,
-                                artistName: "Name Artist",
-                                searchIcon: ImageConstant.imgSearchAmber500)),
+                            child: _buildFrameTwentyNine(
+                                nameArtist: "lbl_name_artist".tr,
+                                search: ImageConstant.imgSearchAmber500)),
                         SizedBox(height: 5.v),
                         Padding(
                             padding: EdgeInsets.only(left: 2.h),
-                            child: _buildFrameTwentyNineRow(context,
-                                artistName: "Name Artist",
-                                searchIcon:
-                                    ImageConstant.imgSearchBlueGray100)),
+                            child: _buildFrameTwentyNine(
+                                nameArtist: "lbl_name_artist".tr,
+                                search: ImageConstant.imgSearchBlueGray100)),
                         SizedBox(height: 5.v),
                         Container(
                             margin: EdgeInsets.only(left: 2.h),
@@ -537,7 +672,7 @@ class HomePage extends StatelessWidget {
                                       child: Padding(
                                           padding: EdgeInsets.only(
                                               left: 10.h, top: 5.v),
-                                          child: Text("Name Artist",
+                                          child: Text("lbl_name_artist".tr,
                                               style: CustomTextStyles
                                                   .labelLargeWhiteA700Medium))),
                                   CustomImageView(
@@ -555,27 +690,24 @@ class HomePage extends StatelessWidget {
   }
 
   /// Section Widget
-  PreferredSizeWidget _buildAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
         title: AppbarTitleSearchview(
             margin: EdgeInsets.only(left: 25.h),
-            hintText: "Search...",
-            controller: searchController),
+            hintText: "lbl_search".tr,
+            controller: controller.searchController),
         actions: [
           AppbarTrailingIconbuttonOne(
               imagePath: ImageConstant.imgUserAlt40x40,
               margin: EdgeInsets.only(left: 15.h, right: 25.h),
               onTap: () {
-                onTapUserAlt(context);
+                onTapUserAlt();
               })
         ]);
   }
 
   /// Common widget
-  Widget _buildArtistStack(
-    BuildContext context, {
-    required String artistName,
-  }) {
+  Widget _buildFrameThirtyNine({required String artistName}) {
     return SizedBox(
         height: 15.v,
         width: 142.h,
@@ -600,20 +732,19 @@ class HomePage extends StatelessWidget {
   }
 
   /// Common widget
-  Widget _buildRegionRow(
-    BuildContext context, {
-    required String regionText,
-    required String arrowIcon,
+  Widget _buildFrameFive({
+    required String regionCounter,
+    required String arrowDown,
   }) {
     return SizedBox(
         width: 142.h,
         child:
             Row(mainAxisAlignment: MainAxisAlignment.spaceBetween, children: [
-          Text(regionText,
+          Text(regionCounter,
               style: CustomTextStyles.labelLargeWhiteA700SemiBold
                   .copyWith(color: appTheme.whiteA700.withOpacity(0.8))),
           CustomImageView(
-              imagePath: arrowIcon,
+              imagePath: arrowDown,
               height: 4.v,
               width: 15.h,
               margin: EdgeInsets.only(top: 5.v))
@@ -621,14 +752,13 @@ class HomePage extends StatelessWidget {
   }
 
   /// Common widget
-  Widget _buildFrameTwentyNineRow(
-    BuildContext context, {
-    required String artistName,
-    required String searchIcon,
+  Widget _buildFrameTwentyNine({
+    required String nameArtist,
+    required String search,
   }) {
     return Container(
         padding: EdgeInsets.all(5.h),
-        decoration: AppDecoration.fillWhiteA700
+        decoration: AppDecoration.fillWhiteA7001
             .copyWith(borderRadius: BorderRadiusStyle.roundedBorder5),
         child: Row(mainAxisSize: MainAxisSize.max, children: [
           CustomImageView(
@@ -640,12 +770,12 @@ class HomePage extends StatelessWidget {
               opacity: 0.5,
               child: Padding(
                   padding: EdgeInsets.only(left: 10.h),
-                  child: Text(artistName,
+                  child: Text(nameArtist,
                       style: CustomTextStyles.labelLargeWhiteA700Medium
                           .copyWith(
                               color: appTheme.whiteA700.withOpacity(0.53))))),
           CustomImageView(
-              imagePath: searchIcon,
+              imagePath: search,
               height: 9.adaptSize,
               width: 9.adaptSize,
               radius: BorderRadius.circular(1.h),
@@ -653,26 +783,24 @@ class HomePage extends StatelessWidget {
         ]));
   }
 
-  //
-  onTapBtnGiftIcon(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.giftAvailableRewardsScreen);
+  /// Navigates to the giftAvailableRewardsScreen when the action is triggered.
+  onTapBtnGiftIcon() {
+    Get.toNamed(
+      AppRoutes.giftAvailableRewardsScreen,
+    );
   }
 
-  //
-  onTapFrameNineteen(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.votingScreen);
+  /// Navigates to the votingScreen when the action is triggered.
+  onTapFrameNineteen() {
+    Get.toNamed(
+      AppRoutes.votingScreen,
+    );
   }
 
-  // Navigates
-  onTapUserAlt(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.profilePageOneScreen);
+  /// Navigates to the profilePageOneScreen when the action is triggered.
+  onTapUserAlt() {
+    Get.toNamed(
+      AppRoutes.profilePageOneScreen,
+    );
   }
 }
-
-class HomeController extends GetxController {
-  // You can manage your state here, and use update() to trigger a rebuild.
-}
-
-
-
-//Second

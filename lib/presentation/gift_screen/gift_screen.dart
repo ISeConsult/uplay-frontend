@@ -1,16 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
-import 'package:joel_s_application7/presentation/contestants_page/contestants_page.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
 import 'package:joel_s_application7/presentation/home_page/home_page.dart';
+import 'package:joel_s_application7/routes/app_routes.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import 'package:joel_s_application7/widgets/custom_bottom_bar.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 
-class GiftScreen extends StatelessWidget {
-  GiftScreen({Key? key})
+import 'controller/gift_controller.dart';
+import 'package:flutter/material.dart';
+
+// ignore_for_file: must_be_immutable
+class GiftScreen extends GetWidget<GiftController> {
+  const GiftScreen({Key? key})
       : super(
           key: key,
         );
-
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +41,12 @@ class GiftScreen extends StatelessWidget {
                         height: 809.v,
                         width: double.maxFinite,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            50.h,
-                          ),
                           gradient: LinearGradient(
                             begin: Alignment(0, 0),
                             end: Alignment(1, 1),
                             colors: [
                               appTheme.lightBlueA700.withOpacity(0.65),
-                              theme.colorScheme.onPrimaryContainer
-                                  .withOpacity(0.65),
+                              theme.colorScheme.primary.withOpacity(0.65),
                             ],
                           ),
                         ),
@@ -59,9 +62,9 @@ class GiftScreen extends StatelessWidget {
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            _buildFrameFiftyRow(context),
+                            _buildFrameFifty(),
                             Spacer(),
-                            _buildEarnMorePointsForm(context),
+                            _buildForm3(),
                           ],
                         ),
                       ),
@@ -78,30 +81,28 @@ class GiftScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: _buildBottomBar(context),
+        bottomNavigationBar: _buildBottomBar(),
       ),
     );
   }
 
   /// Section Widget
-  Widget _buildFrameFiftyRow(BuildContext context) {
+  Widget _buildFrameFifty() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.only(right: 5.h),
-          child: _buildGiftZoneForm(
-            context,
-            giftZoneText: "Money Zone",
-            pointsCounterText: "Points: 500",
+          child: _buildForm(
+            giftZone: "lbl_money_zone".tr,
+            pointsCounter: "lbl_points_500".tr,
           ),
         ),
         Padding(
           padding: EdgeInsets.only(left: 5.h),
-          child: _buildGiftZoneForm(
-            context,
-            giftZoneText: "Gift Zone",
-            pointsCounterText: "Points: 500",
+          child: _buildForm(
+            giftZone: "lbl_gift_zone".tr,
+            pointsCounter: "lbl_points_500".tr,
           ),
         ),
       ],
@@ -109,7 +110,7 @@ class GiftScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildEarnMorePointsForm(BuildContext context) {
+  Widget _buildForm3() {
     return Container(
       padding: EdgeInsets.symmetric(
         horizontal: 70.h,
@@ -131,7 +132,7 @@ class GiftScreen extends StatelessWidget {
           SizedBox(
             width: 198.h,
             child: Text(
-              "There is no reward for you at the moment",
+              "msg_there_is_no_reward".tr,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -145,7 +146,7 @@ class GiftScreen extends StatelessWidget {
               right: 2.h,
             ),
             child: Text(
-              "earn more points voting to  your favourite contestant",
+              "msg_earn_more_points".tr,
               maxLines: 2,
               overflow: TextOverflow.ellipsis,
               textAlign: TextAlign.center,
@@ -158,20 +159,18 @@ class GiftScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildBottomBar(BuildContext context) {
+  Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Navigator.pushNamed(
-            navigatorKey.currentContext!, getCurrentRoute(type));
+        Get.toNamed(getCurrentRoute(type), id: 1);
       },
     );
   }
 
   /// Common widget
-  Widget _buildGiftZoneForm(
-    BuildContext context, {
-    required String giftZoneText,
-    required String pointsCounterText,
+  Widget _buildForm({
+    required String giftZone,
+    required String pointsCounter,
   }) {
     return Expanded(
       child: SizedBox(
@@ -188,14 +187,14 @@ class GiftScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                giftZoneText,
+                giftZone,
                 style: theme.textTheme.titleMedium!.copyWith(
                   color: appTheme.whiteA700,
                 ),
               ),
               SizedBox(height: 2.v),
               Text(
-                pointsCounterText,
+                pointsCounter,
                 style: theme.textTheme.bodySmall!.copyWith(
                   color: appTheme.whiteA700.withOpacity(0.2),
                 ),
@@ -210,26 +209,18 @@ class GiftScreen extends StatelessWidget {
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Settings:
+      case BottomBarEnum.Home:
         return AppRoutes.homePage;
-      case BottomBarEnum.User:
-        return AppRoutes.contestantsPage;
-      case BottomBarEnum.Thumbsup:
-        return "/";
-      case BottomBarEnum.Info:
-        return "/";
       default:
         return "/";
     }
   }
 
-  //Handling page based on route
+  ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.homePage:
         return HomePage();
-      case AppRoutes.contestantsPage:
-        return ContestantsPage();
       default:
         return DefaultWidget();
     }

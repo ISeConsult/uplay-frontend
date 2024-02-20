@@ -1,124 +1,185 @@
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/custom_button_style.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import 'package:joel_s_application7/widgets/custom_elevated_button.dart';
-import 'package:joel_s_application7/widgets/custom_text_form_field.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
+import 'package:joel_s_application7/widgets/custom_outlined_button.dart';
 
-class SubscriptionScreen extends StatelessWidget {
-  SubscriptionScreen({Key? key})
+import 'controller/subscription_controller.dart';
+import 'package:flutter/material.dart';
+
+// ignore_for_file: must_be_immutable
+class SubscriptionScreen extends GetWidget<SubscriptionController> {
+  const SubscriptionScreen({Key? key})
       : super(
           key: key,
         );
-
-  TextEditingController phoneNumberController = TextEditingController();
-
-  GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
       child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: Center(
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(
-              bottom: MediaQuery.of(context).viewInsets.bottom,
-            ),
-            child: Form(
-              key: _formKey,
-              child: Container(
-                width: double.maxFinite,
-                padding: EdgeInsets.symmetric(horizontal: 20.h),
-                child: _buildSubscriptionForm(context),
-              ),
-            ),
-          ),
+        backgroundColor: appTheme.black9004c.withOpacity(0.03),
+        body: Container(
+          width: double.maxFinite,
+          padding: EdgeInsets.symmetric(horizontal: 20.h),
+          child: _buildFrameFiftyFour(),
         ),
       ),
     );
   }
 
   /// Section Widget
-  Widget _buildSubscriptionForm(BuildContext context) {
+  Widget _buildFrameFiftyFour() {
     return Container(
-      padding: EdgeInsets.symmetric(
-        horizontal: 25.h,
-        vertical: 8.v,
+      decoration: AppDecoration.fillGray.copyWith(
+        borderRadius: BorderRadiusStyle.roundedBorder10,
       ),
-      // decoration: AppDecoration.fillGray.copyWith(
-      //   borderRadius: BorderRadiusStyle.roundedBorder10,
-      // ),
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          SizedBox(height: 11.v),
-          CustomTextFormField(
-            controller: phoneNumberController,
-            hintText: "Enter Phone Number",
-            textInputAction: TextInputAction.done,
-            textInputType: TextInputType.phone,
-            borderDecoration: TextFormFieldStyleHelper.outlineGrayTL20,
-            filled: true,
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 0,
+        margin: EdgeInsets.all(0),
+        color: theme.colorScheme.errorContainer,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusStyle.roundedBorder10,
+        ),
+        child: Container(
+          height: 412.v,
+          width: 350.h,
+          decoration: AppDecoration.fillErrorContainer.copyWith(
+            borderRadius: BorderRadiusStyle.roundedBorder10,
           ),
-          SizedBox(height: 15.v),
-          CustomElevatedButton(
-            text: "An Artiste",
-            buttonTextStyle: CustomTextStyles.titleMediumGray50,
-          ),
-          SizedBox(height: 15.v),
-          CustomElevatedButton(
-            text: "A Judge",
-            buttonTextStyle: CustomTextStyles.titleMediumGray50,
-          ),
-          SizedBox(height: 17.v),
-          SizedBox(
-            width: 299.h,
-            child: RichText(
-              text: TextSpan(
-                children: [
-                  TextSpan(
-                    text: "Note: \n",
-                    style: CustomTextStyles.titleMediumfffbf9fa,
+          child: Stack(
+            alignment: Alignment.topCenter,
+            children: [
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  decoration:
+                      AppDecoration.gradientLightblueA700ToPrimary.copyWith(
+                    borderRadius: BorderRadiusStyle.roundedBorder10,
                   ),
-                  TextSpan(
-                    text: "Subscribing ",
-                    style: CustomTextStyles.bodyLargefffbf9fa,
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      SizedBox(height: 6.v),
+                      CustomImageView(
+                        imagePath: ImageConstant.imgGroup2,
+                        height: 405.v,
+                        width: 350.h,
+                      ),
+                    ],
                   ),
-                  TextSpan(
-                    text: "as",
-                    style: CustomTextStyles.bodyLargefffbf9fa,
-                  ),
-                  TextSpan(
-                    text: "  artiste",
-                    style: CustomTextStyles.titleMediumfffbf9fa,
-                  ),
-                  TextSpan(
-                    text: " cost Ghc 70.00 And a ",
-                    style: CustomTextStyles.bodyLargefffbf9fa,
-                  ),
-                  TextSpan(
-                    text: "judge",
-                    style: CustomTextStyles.titleMediumfffbf9fa,
-                  ),
-                  TextSpan(
-                    text:
-                        " cost Ghc 10.00. You will receive a USSD prompt after this action.\n",
-                    style: CustomTextStyles.bodyLargefffbf9fa,
-                  ),
-                  TextSpan(
-                    text: "\n",
-                    style: CustomTextStyles.bodySmallfffbf9fa,
-                  ),
-                  TextSpan(
-                    text:
-                        "In order to participate in this contest you need to subscribe.\nThank you",
-                    style: CustomTextStyles.bodyLargefffbf9fa,
-                  ),
-                ],
+                ),
               ),
-              textAlign: TextAlign.center,
-            ),
+              Align(
+                alignment: Alignment.topCenter,
+                child: Padding(
+                  padding: EdgeInsets.only(
+                    left: 6.h,
+                    right: 10.h,
+                    bottom: 406.v,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Padding(
+                        padding: EdgeInsets.only(bottom: 3.v),
+                        child: Text(
+                          "lbl_12_25_am".tr,
+                          style: CustomTextStyles.bodySmallInterWhiteA700,
+                        ),
+                      ),
+                      CustomImageView(
+                        imagePath: ImageConstant.imgSettings,
+                        height: 6.v,
+                        width: 52.h,
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Padding(
+                  padding: EdgeInsets.symmetric(horizontal: 25.h),
+                  child: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      CustomOutlinedButton(
+                        text: "msg_enter_phone_number".tr,
+                        buttonStyle: CustomButtonStyles.outlineGrayTL20,
+                        buttonTextStyle: CustomTextStyles.bodyLargeBluegray100,
+                      ),
+                      SizedBox(height: 15.v),
+                      CustomElevatedButton(
+                        text: "lbl_an_artiste".tr,
+                        buttonTextStyle: CustomTextStyles.titleMediumGray50,
+                      ),
+                      SizedBox(height: 15.v),
+                      CustomElevatedButton(
+                        text: "lbl_a_judge".tr,
+                        buttonTextStyle: CustomTextStyles.titleMediumGray50,
+                      ),
+                      SizedBox(height: 17.v),
+                      SizedBox(
+                        width: 299.h,
+                        child: RichText(
+                          text: TextSpan(
+                            children: [
+                              TextSpan(
+                                text: "lbl_note".tr,
+                                style: CustomTextStyles.titleMediumfffbf9fa,
+                              ),
+                              TextSpan(
+                                text: "lbl_subscribing".tr,
+                                style: CustomTextStyles.bodyLargefffbf9fa,
+                              ),
+                              TextSpan(
+                                text: "lbl_as".tr,
+                                style: CustomTextStyles.bodyLargefffbf9fa,
+                              ),
+                              TextSpan(
+                                text: "lbl_artiste".tr,
+                                style: CustomTextStyles.titleMediumfffbf9fa,
+                              ),
+                              TextSpan(
+                                text: "msg_cost_ghc_70_00_and".tr,
+                                style: CustomTextStyles.bodyLargefffbf9fa,
+                              ),
+                              TextSpan(
+                                text: "lbl_judge".tr,
+                                style: CustomTextStyles.titleMediumfffbf9fa,
+                              ),
+                              TextSpan(
+                                text: "msg_cost_ghc_10_00".tr,
+                                style: CustomTextStyles.bodyLargefffbf9fa,
+                              ),
+                              TextSpan(
+                                text: "\n".tr,
+                                style: CustomTextStyles.bodySmallfffbf9fa,
+                              ),
+                              TextSpan(
+                                text: "msg_in_order_to_participate".tr,
+                                style: CustomTextStyles.bodyLargefffbf9fa,
+                              ),
+                            ],
+                          ),
+                          textAlign: TextAlign.center,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            ],
           ),
-        ],
+        ),
       ),
     );
   }

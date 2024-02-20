@@ -1,22 +1,27 @@
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/core/utils/validation_functions.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import 'package:joel_s_application7/widgets/app_bar/appbar_title.dart';
 import 'package:joel_s_application7/widgets/app_bar/custom_app_bar.dart';
 import 'package:joel_s_application7/widgets/custom_elevated_button.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 import 'package:joel_s_application7/widgets/custom_outlined_button.dart';
 import 'package:joel_s_application7/widgets/custom_text_form_field.dart';
 
-class SignupPageScreen extends StatelessWidget {
+import 'controller/signup_page_controller.dart';
+import 'package:flutter/material.dart';
+
+// ignore_for_file: must_be_immutable
+class SignupPageScreen extends GetWidget<SignupPageController> {
   SignupPageScreen({Key? key})
       : super(
           key: key,
         );
-
-  TextEditingController userIdController = TextEditingController();
-
-  TextEditingController passwordController = TextEditingController();
-
-  TextEditingController confirmPasswordController = TextEditingController();
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -56,11 +61,8 @@ class SignupPageScreen extends StatelessWidget {
                       Align(
                         alignment: Alignment.center,
                         child: Container(
-                          decoration: AppDecoration
-                              .gradientLightblueA700ToOnPrimaryContainer,
-                          //     .copyWith(
-                          //   borderRadius: BorderRadiusStyle.roundedBorder50,
-                          // ),
+                          decoration:
+                              AppDecoration.gradientLightblueA700ToPrimary,
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
@@ -81,39 +83,39 @@ class SignupPageScreen extends StatelessWidget {
                           child: Column(
                             mainAxisSize: MainAxisSize.min,
                             children: [
-                              _buildWelcomeAppBar(context),
+                              _buildAppBar(),
                               SizedBox(height: 7.v),
                               Text(
-                                "Please Sign Up And Lets Get Started",
+                                "msg_please_sign_up_and".tr,
                                 style: CustomTextStyles.bodyMediumWhiteA700,
                               ),
                               SizedBox(height: 28.v),
                               Text(
-                                "Sign Up",
+                                "lbl_sign_up".tr,
                                 style: theme.textTheme.titleMedium,
                               ),
                               SizedBox(height: 13.v),
-                              _buildFirstName(context),
+                              _buildFirstName(),
                               SizedBox(height: 15.v),
-                              _buildLastName(context),
+                              _buildLastName(),
                               SizedBox(height: 15.v),
-                              _buildNickname(context),
+                              _buildNickname(),
                               SizedBox(height: 15.v),
-                              _buildEmail(context),
+                              _buildEmail(),
                               SizedBox(height: 15.v),
-                              _buildDob(context),
+                              _buildDob(),
                               SizedBox(height: 15.v),
-                              _buildAddress(context),
+                              _buildAddress(),
                               SizedBox(height: 15.v),
-                              _buildRegion(context),
+                              _buildRegion(),
                               SizedBox(height: 15.v),
-                              _buildUserId(context),
+                              _buildId(),
                               SizedBox(height: 15.v),
-                              _buildPassword(context),
+                              _buildPassword(),
                               SizedBox(height: 15.v),
-                              _buildConfirmPassword(context),
+                              _buildConfirmpassword(),
                               SizedBox(height: 34.v),
-                              _buildSignUpButton(context),
+                              _buildSignUp(),
                             ],
                           ),
                         ),
@@ -130,98 +132,110 @@ class SignupPageScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  PreferredSizeWidget _buildWelcomeAppBar(BuildContext context) {
+  PreferredSizeWidget _buildAppBar() {
     return CustomAppBar(
       height: 42.v,
       centerTitle: true,
       title: AppbarTitle(
-        text: "Welcome to Uplay!",
+        text: "msg_welcome_to_uplay".tr,
       ),
     );
   }
 
   /// Section Widget
-  Widget _buildFirstName(BuildContext context) {
+  Widget _buildFirstName() {
     return CustomOutlinedButton(
-      text: "First Name",
+      text: "lbl_first_name".tr,
     );
   }
 
   /// Section Widget
-  Widget _buildLastName(BuildContext context) {
+  Widget _buildLastName() {
     return CustomOutlinedButton(
-      text: "Last Name",
+      text: "lbl_last_name".tr,
     );
   }
 
   /// Section Widget
-  Widget _buildNickname(BuildContext context) {
+  Widget _buildNickname() {
     return CustomOutlinedButton(
-      text: "Nickname",
+      text: "lbl_nickname".tr,
     );
   }
 
   /// Section Widget
-  Widget _buildEmail(BuildContext context) {
+  Widget _buildEmail() {
     return CustomOutlinedButton(
-      text: "Email",
+      text: "lbl_email".tr,
     );
   }
 
   /// Section Widget
-  Widget _buildDob(BuildContext context) {
+  Widget _buildDob() {
     return CustomOutlinedButton(
-      text: "Dob",
+      text: "lbl_dob".tr,
     );
   }
 
   /// Section Widget
-  Widget _buildAddress(BuildContext context) {
+  Widget _buildAddress() {
     return CustomOutlinedButton(
-      text: "Address",
+      text: "lbl_address".tr,
     );
   }
 
   /// Section Widget
-  Widget _buildRegion(BuildContext context) {
+  Widget _buildRegion() {
     return CustomOutlinedButton(
-      text: "Region",
+      text: "lbl_region".tr,
     );
   }
 
   /// Section Widget
-  Widget _buildUserId(BuildContext context) {
+  Widget _buildId() {
     return CustomTextFormField(
-      controller: userIdController,
-      hintText: "ID",
+      controller: controller.idController,
+      hintText: "lbl_id".tr,
     );
   }
 
   /// Section Widget
-  Widget _buildPassword(BuildContext context) {
+  Widget _buildPassword() {
     return CustomTextFormField(
-      controller: passwordController,
-      hintText: "Password",
+      controller: controller.passwordController,
+      hintText: "lbl_password".tr,
       textInputType: TextInputType.visiblePassword,
+      validator: (value) {
+        if (value == null || (!isValidPassword(value, isRequired: true))) {
+          return "err_msg_please_enter_valid_password".tr;
+        }
+        return null;
+      },
       obscureText: true,
     );
   }
 
   /// Section Widget
-  Widget _buildConfirmPassword(BuildContext context) {
+  Widget _buildConfirmpassword() {
     return CustomTextFormField(
-      controller: confirmPasswordController,
-      hintText: "Confirm password",
+      controller: controller.confirmpasswordController,
+      hintText: "msg_confirm_password".tr,
       textInputAction: TextInputAction.done,
       textInputType: TextInputType.visiblePassword,
+      validator: (value) {
+        if (value == null || (!isValidPassword(value, isRequired: true))) {
+          return "err_msg_please_enter_valid_password".tr;
+        }
+        return null;
+      },
       obscureText: true,
     );
   }
 
   /// Section Widget
-  Widget _buildSignUpButton(BuildContext context) {
+  Widget _buildSignUp() {
     return CustomElevatedButton(
-      text: "Sign Up",
+      text: "lbl_sign_up".tr,
       margin: EdgeInsets.symmetric(horizontal: 20.h),
     );
   }

@@ -1,6 +1,7 @@
-import 'dart:ui';
-import 'package:joel_s_application7/core/app_export.dart';
 import 'package:flutter/material.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
+import '../core/app_export.dart';
 
 /// A class that offers pre-defined button styles for customizing button appearance.
 class CustomButtonStyles {
@@ -22,6 +23,16 @@ class CustomButtonStyles {
         elevation: 4,
       );
   static ButtonStyle get outlineGrayTL20 => OutlinedButton.styleFrom(
+        backgroundColor: Colors.transparent,
+        side: BorderSide(
+          color: appTheme.gray50.withOpacity(0.15),
+          width: 1,
+        ),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(20.h),
+        ),
+      );
+  static ButtonStyle get outlineGrayTL201 => OutlinedButton.styleFrom(
         backgroundColor: Colors.transparent,
         side: BorderSide(
           color: appTheme.gray50.withOpacity(0.3),
@@ -50,7 +61,7 @@ class CustomButtonStyles {
         ),
       );
   static ButtonStyle get outlinePrimary => ElevatedButton.styleFrom(
-        backgroundColor: theme.colorScheme.onPrimaryContainer,
+        backgroundColor: theme.colorScheme.primary.withOpacity(1),
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(20.h),
         ),

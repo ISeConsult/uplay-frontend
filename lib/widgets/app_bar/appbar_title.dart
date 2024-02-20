@@ -1,6 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+//import 'package:joel_s_application10/core/app_export.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 
+// ignore: must_be_immutable
 class AppbarTitle extends StatelessWidget {
   AppbarTitle({
     Key? key,

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import '../core/app_export.dart';
 
 /// A collection of pre-defined text styles for customizing text appearance,
@@ -24,6 +26,10 @@ class CustomTextStyles {
       );
   static get bodySmallGray50 => theme.textTheme.bodySmall!.copyWith(
         color: appTheme.gray50.withOpacity(0.3),
+      );
+  static get bodySmallInterWhiteA700 =>
+      theme.textTheme.bodySmall!.inter.copyWith(
+        color: appTheme.whiteA700,
       );
   static get bodySmallPinkA200 => theme.textTheme.bodySmall!.copyWith(
         color: appTheme.pinkA200.withOpacity(0.3),
@@ -89,18 +95,16 @@ class CustomTextStyles {
         color: appTheme.gray50.withOpacity(0.67),
         fontSize: 17.fSize,
       );
-  static get titleMediumOnPrimaryContainer =>
-      theme.textTheme.titleMedium!.copyWith(
-        color: theme.colorScheme.onPrimaryContainer,
-      );
-  static get titleMediumOnPrimaryContainer_1 =>
-      theme.textTheme.titleMedium!.copyWith(
-        color: theme.colorScheme.onPrimaryContainer.withOpacity(0.6),
+  static get titleMediumPrimary => theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(0.6),
       );
   static get titleMediumPrimaryContainer =>
       theme.textTheme.titleMedium!.copyWith(
         color: theme.colorScheme.primaryContainer,
         fontSize: 16.fSize,
+      );
+  static get titleMediumPrimary_1 => theme.textTheme.titleMedium!.copyWith(
+        color: theme.colorScheme.primary.withOpacity(1),
       );
   static get titleMediumff545865 => theme.textTheme.titleMedium!.copyWith(
         color: Color(0XFF545865),
@@ -125,6 +129,12 @@ extension on TextStyle {
   TextStyle get poppins {
     return copyWith(
       fontFamily: 'Poppins',
+    );
+  }
+
+  TextStyle get inter {
+    return copyWith(
+      fontFamily: 'Inter',
     );
   }
 }

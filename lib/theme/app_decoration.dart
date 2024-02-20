@@ -1,13 +1,21 @@
 import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+//import 'package:joel_s_application10/core/app_export.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 
 class AppDecoration {
   // Fill decorations
   static BoxDecoration get fillAmber => BoxDecoration(
         color: appTheme.amber500.withOpacity(0.2),
       );
-  static BoxDecoration get fillBlackC => BoxDecoration(
+  static BoxDecoration get fillBlack9004c => BoxDecoration(
+        color: appTheme.black9004c.withOpacity(0.02),
+      );
+  static BoxDecoration get fillBlack9004c1 => BoxDecoration(
         color: appTheme.black9004c,
+      );
+  static BoxDecoration get fillBlackC => BoxDecoration(
+        color: appTheme.black9004c.withOpacity(0.03),
       );
   static BoxDecoration get fillErrorContainer => BoxDecoration(
         color: theme.colorScheme.errorContainer,
@@ -25,6 +33,9 @@ class AppDecoration {
         color: appTheme.whiteA700,
       );
   static BoxDecoration get fillWhiteA700 => BoxDecoration(
+        color: appTheme.whiteA700.withOpacity(0.25),
+      );
+  static BoxDecoration get fillWhiteA7001 => BoxDecoration(
         color: appTheme.whiteA700.withOpacity(0.2),
       );
 
@@ -39,25 +50,23 @@ class AppDecoration {
           ],
         ),
       );
-  static BoxDecoration get gradientLightBlueAToOnPrimaryContainer =>
-      BoxDecoration(
+  static BoxDecoration get gradientLightBlueAToPrimary => BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment(0, 0),
           end: Alignment(1, 1),
           colors: [
             appTheme.lightBlueA700.withOpacity(0.75),
-            theme.colorScheme.onPrimaryContainer.withOpacity(0.75),
+            theme.colorScheme.primary.withOpacity(0.75),
           ],
         ),
       );
-  static BoxDecoration get gradientLightblueA700ToOnPrimaryContainer =>
-      BoxDecoration(
+  static BoxDecoration get gradientLightblueA700ToPrimary => BoxDecoration(
         gradient: LinearGradient(
           begin: Alignment(0, 0),
           end: Alignment(1, 1),
           colors: [
             appTheme.lightBlueA700.withOpacity(0.65),
-            theme.colorScheme.onPrimaryContainer.withOpacity(0.65),
+            theme.colorScheme.primary.withOpacity(0.65),
           ],
         ),
       );
@@ -77,7 +86,7 @@ class AppDecoration {
         color: appTheme.whiteA700,
         boxShadow: [
           BoxShadow(
-            color: theme.colorScheme.onPrimaryContainer.withOpacity(0.7),
+            color: theme.colorScheme.onPrimaryContainer,
             spreadRadius: 2.h,
             blurRadius: 2.h,
             offset: Offset(
@@ -103,7 +112,21 @@ class AppDecoration {
           ),
         ),
       );
-  static BoxDecoration get outline1 => BoxDecoration();
+  static BoxDecoration get outline1 => BoxDecoration(
+        color: appTheme.whiteA700,
+        boxShadow: [
+          BoxShadow(
+            color: theme.colorScheme.onPrimaryContainer,
+            spreadRadius: 2.h,
+            blurRadius: 2.h,
+            offset: Offset(
+              -6,
+              4,
+            ),
+          ),
+        ],
+      );
+  static BoxDecoration get outline2 => BoxDecoration();
 }
 
 class BorderRadiusStyle {
@@ -133,9 +156,6 @@ class BorderRadiusStyle {
       );
   static BorderRadius get roundedBorder5 => BorderRadius.circular(
         5.h,
-      );
-  static BorderRadius get roundedBorder50 => BorderRadius.circular(
-        50.h,
       );
 }
 

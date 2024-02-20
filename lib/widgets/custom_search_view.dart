@@ -1,5 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
+import '../core/app_export.dart';
 
 class CustomSearchView extends StatelessWidget {
   CustomSearchView({
@@ -76,16 +81,16 @@ class CustomSearchView extends StatelessWidget {
     return alignment != null
         ? Align(
             alignment: alignment ?? Alignment.center,
-            child: searchViewWidget(context),
+            child: searchViewWidget,
           )
-        : searchViewWidget(context);
+        : searchViewWidget;
   }
 
-  Widget searchViewWidget(BuildContext context) => SizedBox(
+  Widget get searchViewWidget => SizedBox(
         width: width ?? double.maxFinite,
         child: TextFormField(
-          scrollPadding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          scrollPadding: EdgeInsets.only(
+              bottom: MediaQuery.of(Get.context!).viewInsets.bottom),
           controller: controller,
           focusNode: focusNode ?? FocusNode(),
           autofocus: autofocus!,

@@ -1,128 +1,80 @@
-import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get/get_core/src/get_main.dart';
-import 'package:get/get_navigation/get_navigation.dart';
-import 'package:joel_s_application7/core/app_export.dart';
-import 'package:joel_s_application7/presentation/tabs_screen/tabs_screen.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 
-// //
-// class FormItemWidget extends StatelessWidget {
-//   const FormItemWidget({Key? key})
-//       : super(
-//           key: key,
-//         );
+import '../controller/fanbase_controller.dart';
+import '../models/form_item_model.dart';
+import 'package:flutter/material.dart';
+//import 'package:joel_s_application10/core/app_export.dart';
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return SizedBox(
-//       width: 140.h,
-//       child: Card(
-//         clipBehavior: Clip.antiAlias,
-//         elevation: 0,
-//         margin: EdgeInsets.all(0),
-//         shape: RoundedRectangleBorder(
-//           borderRadius: BorderRadiusStyle.roundedBorder10,
-//         ),
-//         child: Container(
-//           height: 80.v,
-//           width: 140.h,
-//           decoration: BoxDecoration(
-//             borderRadius: BorderRadiusStyle.roundedBorder10,
-//           ),
-//           child: Stack(
-//             alignment: Alignment.center,
-//             children: [
-//               CustomImageView(
-//                 imagePath: ImageConstant.imgRetroMicrophon,
-//                 height: 80.v,
-//                 width: 140.h,
-//                 radius: BorderRadius.circular(
-//                   10.h,
-//                 ),
-//                 alignment: Alignment.center,
-//               ),
-//               Align(
-//                 alignment: Alignment.center,
-//                 child: Container(
-//                   height: 40.adaptSize,
-//                   width: 40.adaptSize,
-//                   decoration: AppDecoration.fillBlackC.copyWith(
-//                     borderRadius: BorderRadiusStyle.roundedBorder20,
-//                   ),
-//                   child: CustomImageView(
-//                     imagePath: ImageConstant.imgOverflowMenu,
-//                     height: 40.adaptSize,
-//                     width: 40.adaptSize,
-//                     radius: BorderRadius.circular(
-//                       20.h,
-//                     ),
-//                     alignment: Alignment.center,
-//                   ),
-//                 ),
-//               ),
-//             ],
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-//second
-
+// ignore: must_be_immutable
 class FormItemWidget extends StatelessWidget {
-  const FormItemWidget({Key? key}) : super(key: key);
+  FormItemWidget(
+    this.formItemModelObj, {
+    Key? key,
+  }) : super(
+          key: key,
+        );
+
+  FormItemModel formItemModelObj;
+
+  var controller = Get.find<FanbaseController>();
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
       width: 140.h,
-      child: GestureDetector(
-        onTap: () {
-          // Use Get.to() to navigate to another screen when the card is tapped
-          Get.to(() => TabsScreen());
-        },
-        child: Card(
-          clipBehavior: Clip.antiAlias,
-          elevation: 0,
-          margin: EdgeInsets.all(0),
-          shape: RoundedRectangleBorder(
+      child: Card(
+        clipBehavior: Clip.antiAlias,
+        elevation: 0,
+        margin: EdgeInsets.all(0),
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadiusStyle.roundedBorder10,
+        ),
+        child: Container(
+          height: 80.v,
+          width: 140.h,
+          decoration: BoxDecoration(
             borderRadius: BorderRadiusStyle.roundedBorder10,
           ),
-          child: Container(
-            height: 80.v,
-            width: 140.h,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadiusStyle.roundedBorder10,
-            ),
-            child: Stack(
-              alignment: Alignment.center,
-              children: [
-                CustomImageView(
-                  imagePath: ImageConstant.imgRetroMicrophon,
+          child: Stack(
+            alignment: Alignment.center,
+            children: [
+              Obx(
+                () => CustomImageView(
+                  imagePath: formItemModelObj.retroMicrophon!.value,
                   height: 80.v,
                   width: 140.h,
-                  radius: BorderRadius.circular(10.h),
+                  radius: BorderRadius.circular(
+                    10.h,
+                  ),
                   alignment: Alignment.center,
                 ),
-                Align(
-                  alignment: Alignment.center,
-                  child: Container(
-                    height: 40.adaptSize,
-                    width: 40.adaptSize,
-                    decoration: AppDecoration.fillBlackC.copyWith(
-                      borderRadius: BorderRadiusStyle.roundedBorder20,
-                    ),
-                    child: CustomImageView(
-                      imagePath: ImageConstant.imgOverflowMenu,
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: Container(
+                  height: 40.adaptSize,
+                  width: 40.adaptSize,
+                  decoration: AppDecoration.fillBlack9004c1.copyWith(
+                    borderRadius: BorderRadiusStyle.roundedBorder20,
+                  ),
+                  child: Obx(
+                    () => CustomImageView(
+                      imagePath: formItemModelObj.overflowMenu!.value,
                       height: 40.adaptSize,
                       width: 40.adaptSize,
-                      radius: BorderRadius.circular(20.h),
+                      radius: BorderRadius.circular(
+                        20.h,
+                      ),
                       alignment: Alignment.center,
                     ),
                   ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),

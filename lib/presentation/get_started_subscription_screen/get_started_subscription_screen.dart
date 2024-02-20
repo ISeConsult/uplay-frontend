@@ -1,462 +1,263 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/core/utils/validation_functions.dart';
+import 'package:joel_s_application7/routes/app_routes.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/custom_button_style.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import 'package:joel_s_application7/widgets/custom_elevated_button.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 import 'package:joel_s_application7/widgets/custom_text_form_field.dart';
 
-//
-class GetStartedSubscriptionScreen extends StatelessWidget {
-  GetStartedSubscriptionScreen({Key? key}) : super(key: key);
+import 'controller/get_started_subscription_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter_svg_provider/flutter_svg_provider.dart' as fs;
+// import 'package:joel_s_application10/core/app_export.dart';
+// import 'package:joel_s_application10/core/utils/validation_functions.dart';
+// import 'package:joel_s_application10/widgets/custom_elevated_button.dart';
+// import 'package:joel_s_application10/widgets/custom_text_form_field.dart';
 
-  TextEditingController phoneNumberController = TextEditingController();
+// ignore_for_file: must_be_immutable
+class GetStartedSubscriptionScreen
+    extends GetWidget<GetStartedSubscriptionController> {
+  GetStartedSubscriptionScreen({Key? key}) : super(key: key);
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
   @override
   Widget build(BuildContext context) {
     return SafeArea(
-      child: Scaffold(
-        resizeToAvoidBottomInset: false,
-        body: SizedBox(
-          width: SizeUtils.width,
-          child: SingleChildScrollView(
-            padding: EdgeInsets.only(
-                bottom: MediaQuery.of(context).viewInsets.bottom),
-            child: Form(
-              key: _formKey,
-              child: SizedBox(
-                height: 809.v,
-                width: double.maxFinite,
-                child: Stack(
-                  alignment: Alignment.bottomCenter,
-                  children: [
-                    Align(
-                      alignment: Alignment.center,
-                      child: Container(
-                        decoration: AppDecoration
-                            .gradientLightBlueAToOnPrimaryContainer,
-                        // .copyWith(
-                        //     borderRadius:
-                        //         BorderRadiusStyle.roundedBorder50),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(height: 55.v),
-                            CustomImageView(
-                                imagePath: ImageConstant.imgGroup2,
-                                height: 753.v,
-                                width: 390.h)
-                          ],
-                        ),
-                      ),
-                    ),
-                    Align(
-                      alignment: Alignment.bottomCenter,
-                      child: Container(
-                        padding: EdgeInsets.symmetric(
-                            horizontal: 25.h, vertical: 39.v),
-                        decoration: BoxDecoration(
-                            image: DecorationImage(
-                                image: fs.Svg(ImageConstant.imgGroup1),
-                                fit: BoxFit.cover)),
-                        child: Column(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            SizedBox(height: 82.v),
-                            Text("Subscribe as",
-                                style: theme.textTheme.headlineMedium),
-                            SizedBox(height: 87.v),
-                            _buildPhoneNumber(context),
-                            SizedBox(height: 15.v),
-                            _buildAnArtiste(context),
-                            SizedBox(height: 15.v),
-                            _buildAJudge(context),
-                            SizedBox(height: 17.v),
-                            SizedBox(
-                                width: 335.h,
-                                child: RichText(
-                                    text: TextSpan(children: [
-                                      TextSpan(
-                                          text: "Note: \n",
-                                          style: CustomTextStyles
-                                              .titleMediumff545865),
-                                      TextSpan(
-                                          text: "Subscribing ",
-                                          style: CustomTextStyles
-                                              .bodyLargeff545865),
-                                      TextSpan(
-                                          text: "as",
-                                          style: CustomTextStyles
-                                              .bodyLargeff545865),
-                                      TextSpan(
-                                          text: "  artiste",
-                                          style: CustomTextStyles
-                                              .titleMediumff545865),
-                                      TextSpan(
-                                          text: " cost Ghc 70.00 And a ",
-                                          style: CustomTextStyles
-                                              .bodyLargeff545865),
-                                      TextSpan(
-                                          text: "judge",
-                                          style: CustomTextStyles
-                                              .titleMediumff545865),
-                                      TextSpan(
-                                          text:
-                                              " cost Ghc 10.00. You will receive a USSD prompt after this action.\n",
-                                          style: CustomTextStyles
-                                              .bodyLargeff545865),
-                                      TextSpan(
-                                          text: "\n",
-                                          style: CustomTextStyles
-                                              .bodySmallff545865),
-                                      TextSpan(
-                                          text:
-                                              "In order to participate in this contest you need to subscribe.\nThank you",
-                                          style: CustomTextStyles
-                                              .bodyLargeff545865)
-                                    ]),
-                                    textAlign: TextAlign.center)),
-                            SizedBox(height: 5.v),
-                            _buildFrameEleven(context)
-                          ],
-                        ),
-                      ),
-                    ),
-                    Align(
-                        alignment: Alignment.topCenter,
-                        child: Container(
-                            height: 150.adaptSize,
-                            width: 150.adaptSize,
-                            margin: EdgeInsets.only(top: 59.v),
-                            padding: EdgeInsets.symmetric(
-                                horizontal: 31.h, vertical: 10.v),
-                            decoration: AppDecoration.outline.copyWith(
-                                borderRadius:
-                                    BorderRadiusStyle.roundedBorder10),
-                            child: CustomImageView(
-                                imagePath: ImageConstant.imgImage2,
-                                height: 130.v,
-                                width: 86.h,
-                                alignment: Alignment.center)))
-                  ],
-                ),
-              ),
-            ),
-          ),
-        ),
-      ),
-    );
+        child: Scaffold(
+            resizeToAvoidBottomInset: false,
+            body: SizedBox(
+                width: SizeUtils.width,
+                child: SingleChildScrollView(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: Form(
+                        key: _formKey,
+                        child: SizedBox(
+                            height: 809.v,
+                            width: double.maxFinite,
+                            child: Stack(
+                                alignment: Alignment.bottomCenter,
+                                children: [
+                                  Align(
+                                      alignment: Alignment.center,
+                                      child: Container(
+                                          decoration: AppDecoration
+                                              .gradientLightBlueAToPrimary,
+                                          child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SizedBox(height: 55.v),
+                                                CustomImageView(
+                                                    imagePath:
+                                                        ImageConstant.imgGroup2,
+                                                    height: 753.v,
+                                                    width: 390.h)
+                                              ]))),
+                                  Align(
+                                      alignment: Alignment.bottomCenter,
+                                      child: Container(
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 25.h, vertical: 39.v),
+                                          decoration: BoxDecoration(
+                                              image: DecorationImage(
+                                                  image: fs.Svg(
+                                                      ImageConstant.imgGroup5),
+                                                  fit: BoxFit.cover)),
+                                          child: Column(
+                                              mainAxisSize: MainAxisSize.min,
+                                              children: [
+                                                SizedBox(height: 82.v),
+                                                Text("lbl_subscribe_as".tr,
+                                                    style: theme.textTheme
+                                                        .headlineMedium),
+                                                SizedBox(height: 87.v),
+                                                _buildPhoneNumber(),
+                                                SizedBox(height: 15.v),
+                                                _buildAnArtiste(),
+                                                SizedBox(height: 15.v),
+                                                _buildAJudge(),
+                                                SizedBox(height: 17.v),
+                                                SizedBox(
+                                                    width: 335.h,
+                                                    child: RichText(
+                                                        text:
+                                                            TextSpan(children: [
+                                                          TextSpan(
+                                                              text:
+                                                                  "lbl_note".tr,
+                                                              style: CustomTextStyles
+                                                                  .titleMediumff545865),
+                                                          TextSpan(
+                                                              text:
+                                                                  "lbl_subscribing"
+                                                                      .tr,
+                                                              style: CustomTextStyles
+                                                                  .bodyLargeff545865),
+                                                          TextSpan(
+                                                              text: "lbl_as".tr,
+                                                              style: CustomTextStyles
+                                                                  .bodyLargeff545865),
+                                                          TextSpan(
+                                                              text:
+                                                                  "lbl_artiste"
+                                                                      .tr,
+                                                              style: CustomTextStyles
+                                                                  .titleMediumff545865),
+                                                          TextSpan(
+                                                              text:
+                                                                  "msg_cost_ghc_70_00_and"
+                                                                      .tr,
+                                                              style: CustomTextStyles
+                                                                  .bodyLargeff545865),
+                                                          TextSpan(
+                                                              text: "lbl_judge"
+                                                                  .tr,
+                                                              style: CustomTextStyles
+                                                                  .titleMediumff545865),
+                                                          TextSpan(
+                                                              text:
+                                                                  "msg_cost_ghc_10_00"
+                                                                      .tr,
+                                                              style: CustomTextStyles
+                                                                  .bodyLargeff545865),
+                                                          TextSpan(
+                                                              text: "\n".tr,
+                                                              style: CustomTextStyles
+                                                                  .bodySmallff545865),
+                                                          TextSpan(
+                                                              text:
+                                                                  "msg_in_order_to_participate"
+                                                                      .tr,
+                                                              style: CustomTextStyles
+                                                                  .bodyLargeff545865)
+                                                        ]),
+                                                        textAlign:
+                                                            TextAlign.center)),
+                                                SizedBox(height: 5.v),
+                                                _buildFrameEleven()
+                                              ]))),
+                                  Align(
+                                      alignment: Alignment.topCenter,
+                                      child: Container(
+                                          height: 150.adaptSize,
+                                          width: 150.adaptSize,
+                                          margin: EdgeInsets.only(top: 59.v),
+                                          padding: EdgeInsets.symmetric(
+                                              horizontal: 31.h, vertical: 10.v),
+                                          decoration: AppDecoration.outline1
+                                              .copyWith(
+                                                  borderRadius:
+                                                      BorderRadiusStyle
+                                                          .roundedBorder10),
+                                          child: CustomImageView(
+                                              imagePath:
+                                                  ImageConstant.imgImage2,
+                                              height: 130.v,
+                                              width: 86.h,
+                                              alignment: Alignment.center)))
+                                ])))))));
   }
 
   /// Section Widget
-  Widget _buildPhoneNumber(BuildContext context) {
+  Widget _buildPhoneNumber() {
     return Padding(
         padding: EdgeInsets.symmetric(horizontal: 20.h),
         child: CustomTextFormField(
-            controller: phoneNumberController,
-            hintText: "Enter Phone Number",
+            controller: controller.phoneNumberController,
+            hintText: "msg_enter_phone_number".tr,
             textInputAction: TextInputAction.done,
-            textInputType: TextInputType.phone));
+            textInputType: TextInputType.phone,
+            validator: (value) {
+              if (!isValidPhone(value)) {
+                return "err_msg_please_enter_valid_phone_number".tr;
+              }
+              return null;
+            }));
   }
 
   /// Section Widget
-  Widget _buildAnArtiste(BuildContext context) {
+  Widget _buildAnArtiste() {
     return CustomElevatedButton(
-        text: "An Artiste",
+        text: "lbl_an_artiste".tr,
         margin: EdgeInsets.symmetric(horizontal: 20.h),
         onPressed: () {
-          onTapAnArtiste(context);
+          onTapAnArtiste();
         });
   }
 
   /// Section Widget
-  Widget _buildAJudge(BuildContext context) {
+  Widget _buildAJudge() {
     return CustomElevatedButton(
-        text: "A Judge",
+        text: "lbl_a_judge".tr,
         margin: EdgeInsets.symmetric(horizontal: 20.h),
         onPressed: () {
-          onTapAJudge(context);
+          onTapAJudge();
         });
   }
 
   /// Section Widget
-  Widget _buildPrevious(BuildContext context) {
+  Widget _buildPrevious() {
     return Expanded(
         child: CustomElevatedButton(
-            text: "Previous",
+            text: "lbl_previous".tr,
             margin: EdgeInsets.only(right: 25.h),
             buttonStyle: CustomButtonStyles.outlineBlueGray,
             onPressed: () {
-              onTapPrevious(context);
+              onTapPrevious();
             }));
   }
 
   /// Section Widget
-  Widget _buildLater(BuildContext context) {
+  Widget _buildLater() {
     return Expanded(
         child: CustomElevatedButton(
-            text: "Later",
+            text: "lbl_later".tr,
             margin: EdgeInsets.only(left: 25.h),
             buttonStyle: CustomButtonStyles.outlinePrimary,
             onPressed: () {
-              onTapLater(context);
+              onTapLater();
             }));
   }
 
   /// Section Widget
-  Widget _buildFrameEleven(BuildContext context) {
+  Widget _buildFrameEleven() {
     return Row(
         mainAxisAlignment: MainAxisAlignment.center,
-        children: [_buildPrevious(context), _buildLater(context)]);
+        children: [_buildPrevious(), _buildLater()]);
   }
 
   /// Navigates to the getStartedScreen when the action is triggered.
-  onTapAnArtiste(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.getStartedScreen);
+  onTapAnArtiste() {
+    Get.toNamed(
+      AppRoutes.getStartedScreen,
+    );
   }
 
   /// Navigates to the getStartedScreen when the action is triggered.
-  onTapAJudge(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.getStartedScreen);
+  onTapAJudge() {
+    Get.toNamed(
+      AppRoutes.getStartedScreen,
+    );
   }
 
   /// Navigates to the getStartedIntroductionScreen when the action is triggered.
-  onTapPrevious(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.getStartedIntroductionScreen);
+  onTapPrevious() {
+    Get.toNamed(
+      AppRoutes.getStartedIntroductionScreen,
+    );
   }
 
   /// Navigates to the getStartedScreen when the action is triggered.
-  onTapLater(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.getStartedScreen);
-    //Get.toPu
+  onTapLater() {
+    Get.toNamed(
+      AppRoutes.getStartedScreen,
+    );
   }
 }
-
-//Second
-
-
-// class GetStartedSubscriptionScreen extends StatelessWidget {
-//   final GetStartedSubscriptionController controller =
-//       getStartedSubscriptionController;
-
-//   GetStartedSubscriptionScreen({Key? key}) : super(key: key);
-
-//   @override
-//   Widget build(BuildContext context) {
-//     return SafeArea(
-//       child: Scaffold(
-//         resizeToAvoidBottomInset: false,
-//         body: SizedBox(
-//           width: SizeUtils.width,
-//           child: SingleChildScrollView(
-//             padding: EdgeInsets.only(
-//               bottom: MediaQuery.of(context).viewInsets.bottom,
-//             ),
-//             child: Form(
-//               key: controller.formKey,
-//               child: SizedBox(
-//                 height: 809.v,
-//                 width: double.maxFinite,
-//                 child: Stack(
-//                   alignment: Alignment.bottomCenter,
-//                   children: [
-//                     Align(
-//                       alignment: Alignment.center,
-//                       child: Container(
-//                         decoration: AppDecoration
-//                             .gradientLightBlueAToOnPrimaryContainer
-//                             .copyWith(
-//                           borderRadius: BorderRadiusStyle.roundedBorder50,
-//                         ),
-//                         child: Column(
-//                           mainAxisSize: MainAxisSize.min,
-//                           children: [
-//                             SizedBox(height: 55.v),
-//                             CustomImageView(
-//                               imagePath: ImageConstant.imgGroup2,
-//                               height: 753.v,
-//                               width: 390.h,
-//                             ),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                     Align(
-//                       alignment: Alignment.bottomCenter,
-//                       child: Container(
-//                         padding: EdgeInsets.symmetric(
-//                           horizontal: 25.h,
-//                           vertical: 39.v,
-//                         ),
-//                         decoration: BoxDecoration(
-//                           image: DecorationImage(
-//                             image: fs.Svg(ImageConstant.imgGroup1),
-//                             fit: BoxFit.cover,
-//                           ),
-//                         ),
-//                         child: Column(
-//                           mainAxisSize: MainAxisSize.min,
-//                           children: [
-//                             SizedBox(height: 82.v),
-//                             Text(
-//                               "Subscribe as",
-//                               style: theme.textTheme.headlineMedium,
-//                             ),
-//                             SizedBox(height: 87.v),
-//                             _buildPhoneNumber(context),
-//                             SizedBox(height: 15.v),
-//                             _buildAnArtiste(context),
-//                             SizedBox(height: 15.v),
-//                             _buildAJudge(context),
-//                             SizedBox(height: 17.v),
-//                             SizedBox(
-//                               width: 335.h,
-//                               child: RichText(
-//                                 text: TextSpan(
-//                                   children: [
-//                                     TextSpan(
-//                                       text: "Note: \n",
-//                                       style: CustomTextStyles.titleMediumff545865,
-//                                     ),
-//                                     TextSpan(
-//                                       text: "Subscribing ",
-//                                       style: CustomTextStyles.bodyLargeff545865,
-//                                     ),
-//                                     TextSpan(
-//                                       text: "as",
-//                                       style: CustomTextStyles.bodyLargeff545865,
-//                                     ),
-//                                     TextSpan(
-//                                       text: "  artiste",
-//                                       style: CustomTextStyles.titleMediumff545865,
-//                                     ),
-//                                     TextSpan(
-//                                       text: " cost Ghc 70.00 And a ",
-//                                       style: CustomTextStyles.bodyLargeff545865,
-//                                     ),
-//                                     TextSpan(
-//                                       text: "judge",
-//                                       style: CustomTextStyles.titleMediumff545865,
-//                                     ),
-//                                     TextSpan(
-//                                       text: " cost Ghc 10.00. You will receive a USSD prompt after this action.\n",
-//                                       style: CustomTextStyles.bodyLargeff545865,
-//                                     ),
-//                                     TextSpan(
-//                                       text: "\n",
-//                                       style: CustomTextStyles.bodySmallff545865,
-//                                     ),
-//                                     TextSpan(
-//                                       text:
-//                                           "In order to participate in this contest you need to subscribe.\nThank you",
-//                                       style: CustomTextStyles.bodyLargeff545865,
-//                                     ),
-//                                   ],
-//                                 ),
-//                                 textAlign: TextAlign.center,
-//                               ),
-//                             ),
-//                             SizedBox(height: 5.v),
-//                             _buildFrameEleven(context),
-//                           ],
-//                         ),
-//                       ),
-//                     ),
-//                     Align(
-//                       alignment: Alignment.topCenter,
-//                       child: Container(
-//                         height: 150.adaptSize,
-//                         width: 150.adaptSize,
-//                         margin: EdgeInsets.only(top: 59.v),
-//                         padding: EdgeInsets.symmetric(
-//                           horizontal: 31.h,
-//                           vertical: 10.v,
-//                         ),
-//                         decoration: AppDecoration.outline.copyWith(
-//                           borderRadius: BorderRadiusStyle.roundedBorder10,
-//                         ),
-//                         child: CustomImageView(
-//                           imagePath: ImageConstant.imgImage2,
-//                           height: 130.v,
-//                           width: 86.h,
-//                           alignment: Alignment.center,
-//                         ),
-//                       ),
-//                     ),
-//                   ],
-//                 ),
-//               ),
-//             ),
-//           ),
-//         ),
-//       ),
-//     );
-//   }
-
-//   /// Section Widget
-//   Widget _buildPhoneNumber(BuildContext context) {
-//     return Padding(
-//       padding: EdgeInsets.symmetric(horizontal: 20.h),
-//       child: CustomTextFormField(
-//         controller: controller.phoneNumberController,
-//         hintText: "Enter Phone Number",
-//         textInputAction: TextInputAction.done,
-//         textInputType: TextInputType.phone,
-//       ),
-//     );
-//   }
-
-//   /// Section Widget
-//   Widget _buildAnArtiste(BuildContext context) {
-//     return CustomElevatedButton(
-//       text: "An Artiste",
-//       margin: EdgeInsets.symmetric(horizontal: 20.h),
-//       onPressed: controller.onTapAnArtiste,
-//     );
-//   }
-
-//   /// Section Widget
-//   Widget _buildAJudge(BuildContext context) {
-//     return CustomElevatedButton(
-//       text: "A Judge",
-//       margin: EdgeInsets.symmetric(horizontal: 20.h),
-//       onPressed: controller.onTapAJudge,
-//     );
-//   }
-
-//   /// Section Widget
-//   Widget _buildPrevious(BuildContext context) {
-//     return Expanded(
-//       child: CustomElevatedButton(
-//         text: "Previous",
-//         margin: EdgeInsets.only(right: 25.h),
-//         buttonStyle: CustomButtonStyles.outlineBlueGray,
-//         onPressed: controller.onTapPrevious,
-//       ),
-//     );
-//   }
-
-//   /// Section Widget
-//   Widget _buildLater(BuildContext context) {
-//     return Expanded(
-//       child: CustomElevatedButton(
-//         text: "Later",
-//         margin: EdgeInsets.only(left: 25.h),
-//         buttonStyle: CustomButtonStyles.outlinePrimary,
-//         onPressed: controller.onTapLater,
-//       ),
-//     );
-//   }
-
-//   /// Section Widget
-//   Widget _buildFrameEleven(BuildContext context) {
-//     return Row(
-//       mainAxisAlignment: MainAxisAlignment.center,
-//       children: [
-//         _buildPrevious(context),
-//         _buildLater(context),
-//       ],
-//     );
-//   }
-// }
-

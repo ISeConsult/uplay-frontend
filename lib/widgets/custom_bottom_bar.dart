@@ -1,40 +1,58 @@
 import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:get/get.dart';
+import 'package:get/get_rx/src/rx_types/rx_types.dart';
+//import 'package:joel_s_application10/core/app_export.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 
-class CustomBottomBar extends StatefulWidget {
-  CustomBottomBar({this.onChanged});
+class CustomBottomBar extends StatelessWidget {
+  CustomBottomBar({
+    Key? key,
+    this.onChanged,
+  }) : super(
+          key: key,
+        );
 
-  Function(BottomBarEnum)? onChanged;
-
-  @override
-  CustomBottomBarState createState() => CustomBottomBarState();
-}
-
-class CustomBottomBarState extends State<CustomBottomBar> {
-  int selectedIndex = 0;
+  RxInt selectedIndex = 0.obs;
 
   List<BottomMenuModel> bottomMenuList = [
     BottomMenuModel(
-      icon: ImageConstant.imgSettings,
-      activeIcon: ImageConstant.imgSettings,
-      type: BottomBarEnum.Settings,
+      icon: ImageConstant.imgCalculator,
+      activeIcon: ImageConstant.imgCalculator,
+      title: "lbl_home".tr,
+      type: BottomBarEnum.Home,
+    ),
+    BottomMenuModel(
+      icon: ImageConstant.imgSettingsBlueGray400,
+      activeIcon: ImageConstant.imgSettingsBlueGray400,
+      title: "lbl_home".tr,
+      type: BottomBarEnum.Home,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgUser,
       activeIcon: ImageConstant.imgUser,
-      type: BottomBarEnum.User,
+      title: "lbl_home".tr,
+      type: BottomBarEnum.Home,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgThumbsUp,
       activeIcon: ImageConstant.imgThumbsUp,
-      type: BottomBarEnum.Thumbsup,
+      title: "lbl_home".tr,
+      type: BottomBarEnum.Home,
     ),
     BottomMenuModel(
       icon: ImageConstant.imgInfo,
       activeIcon: ImageConstant.imgInfo,
-      type: BottomBarEnum.Info,
+      title: "lbl_home".tr,
+      type: BottomBarEnum.Home,
     )
   ];
+
+  Function(BottomBarEnum)? onChanged;
 
   @override
   Widget build(BuildContext context) {
@@ -50,58 +68,85 @@ class CustomBottomBarState extends State<CustomBottomBar> {
           ],
         ),
       ),
-      child: BottomNavigationBar(
-        backgroundColor: Colors.transparent,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        selectedFontSize: 0,
-        elevation: 0,
-        currentIndex: selectedIndex,
-        type: BottomNavigationBarType.fixed,
-        items: List.generate(bottomMenuList.length, (index) {
-          return BottomNavigationBarItem(
-            icon: CustomImageView(
-              imagePath: bottomMenuList[index].icon,
-              height: 40.adaptSize,
-              width: 40.adaptSize,
-              color: appTheme.blueGray400,
-            ),
-            activeIcon: CustomImageView(
-              imagePath: bottomMenuList[index].activeIcon,
-              height: 40.adaptSize,
-              width: 40.adaptSize,
-              color: appTheme.blueGray400,
-            ),
-            label: '',
-          );
-        }),
-        onTap: (index) {
-          selectedIndex = index;
-          widget.onChanged?.call(bottomMenuList[index].type);
-          setState(() {});
-        },
+      child: Obx(
+        () => BottomNavigationBar(
+          backgroundColor: Colors.transparent,
+          showSelectedLabels: false,
+          showUnselectedLabels: false,
+          selectedFontSize: 0,
+          elevation: 0,
+          currentIndex: selectedIndex.value,
+          type: BottomNavigationBarType.fixed,
+          items: List.generate(bottomMenuList.length, (index) {
+            return BottomNavigationBarItem(
+              icon: CustomImageView(
+                imagePath: bottomMenuList[index].icon,
+                height: 40.adaptSize,
+                width: 40.adaptSize,
+                color: appTheme.blueGray400,
+              ),
+              activeIcon: Container(
+                width: 140.h,
+                decoration: AppDecoration.outlinePink,
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    CustomImageView(
+                      imagePath: bottomMenuList[index].activeIcon,
+                      height: 20.adaptSize,
+                      width: 20.adaptSize,
+                      color: appTheme.pink300,
+                      radius: BorderRadius.circular(
+                        1.h,
+                      ),
+                      margin: EdgeInsets.only(left: 33.h),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(
+                        left: 10.h,
+                        right: 33.h,
+                      ),
+                      child: Text(
+                        bottomMenuList[index].title ?? "",
+                        style: CustomTextStyles.titleSmallPink300.copyWith(
+                          color: appTheme.pink300,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              label: '',
+            );
+          }),
+          onTap: (index) {
+            selectedIndex.value = index;
+            onChanged?.call(bottomMenuList[index].type);
+          },
+        ),
       ),
     );
   }
 }
 
 enum BottomBarEnum {
-  Settings,
-  User,
-  Thumbsup,
-  Info,
+  Home,
 }
 
 class BottomMenuModel {
   BottomMenuModel({
     required this.icon,
     required this.activeIcon,
+    this.title,
     required this.type,
   });
 
   String icon;
 
   String activeIcon;
+
+  String? title;
 
   BottomBarEnum type;
 }

@@ -1,13 +1,28 @@
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:get/get.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import 'package:joel_s_application7/widgets/custom_icon_button.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
+
+import '../controller/profile_page_one_controller.dart';
+import '../models/userprofile_item_model.dart';
+import 'package:flutter/material.dart';
 
 // ignore: must_be_immutable
 class UserprofileItemWidget extends StatelessWidget {
-  const UserprofileItemWidget({Key? key})
-      : super(
+  UserprofileItemWidget(
+    this.userprofileItemModelObj, {
+    Key? key,
+  }) : super(
           key: key,
         );
+
+  UserprofileItemModel userprofileItemModelObj;
+
+  var controller = Get.find<ProfilePageOneController>();
 
   @override
   Widget build(BuildContext context) {
@@ -22,28 +37,34 @@ class UserprofileItemWidget extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          CustomIconButton(
-            height: 55.adaptSize,
-            width: 55.adaptSize,
-            padding: EdgeInsets.all(17.h),
-            decoration: IconButtonStyleHelper.fillLightBlueA,
-            child: CustomImageView(
-              imagePath: ImageConstant.imgUserAlt,
+          Obx(
+            () => CustomIconButton(
+              height: 55.adaptSize,
+              width: 55.adaptSize,
+              padding: EdgeInsets.all(17.h),
+              decoration: IconButtonStyleHelper.fillLightBlueA,
+              child: CustomImageView(
+                imagePath: userprofileItemModelObj.userIcon!.value,
+              ),
             ),
           ),
           SizedBox(height: 28.v),
           Opacity(
             opacity: 0.9,
-            child: Text(
-              "32,843",
-              style: theme.textTheme.titleLarge,
+            child: Obx(
+              () => Text(
+                userprofileItemModelObj.followerCount!.value,
+                style: theme.textTheme.titleLarge,
+              ),
             ),
           ),
           Opacity(
             opacity: 0.5,
-            child: Text(
-              "Followers",
-              style: CustomTextStyles.labelLargeGray50,
+            child: Obx(
+              () => Text(
+                userprofileItemModelObj.followerText!.value,
+                style: CustomTextStyles.labelLargeGray50,
+              ),
             ),
           ),
         ],

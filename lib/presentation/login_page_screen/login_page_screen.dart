@@ -1,19 +1,24 @@
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
-import 'package:joel_s_application7/widgets/app_bar/appbar_title.dart';
-import 'package:joel_s_application7/widgets/app_bar/custom_app_bar.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/core/utils/validation_functions.dart';
+import 'package:joel_s_application7/routes/app_routes.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/custom_button_style.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import 'package:joel_s_application7/widgets/custom_checkbox_button.dart';
 import 'package:joel_s_application7/widgets/custom_elevated_button.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 import 'package:joel_s_application7/widgets/custom_text_form_field.dart';
 
-class LoginPageScreen extends StatelessWidget {
+import 'controller/login_page_controller.dart';
+import 'package:flutter/material.dart';
+
+// ignore_for_file: must_be_immutable
+class LoginPageScreen extends GetWidget<LoginPageController> {
   LoginPageScreen({Key? key}) : super(key: key);
-
-  TextEditingController idLabelController = TextEditingController();
-
-  TextEditingController passwordController = TextEditingController();
-
-  bool rememberMeCheckBox = false;
 
   GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
@@ -49,11 +54,7 @@ class LoginPageScreen extends StatelessWidget {
                                           alignment: Alignment.center,
                                           child: Container(
                                               decoration: AppDecoration
-                                                  .gradientLightblueA700ToOnPrimaryContainer,
-                                              //.copyWith(
-                                              // borderRadius:
-                                              // BorderRadiusStyle
-                                              // .roundedBorder50),
+                                                  .gradientLightblueA700ToPrimary,
                                               child: Column(
                                                   mainAxisSize:
                                                       MainAxisSize.min,
@@ -76,40 +77,53 @@ class LoginPageScreen extends StatelessWidget {
                                                   mainAxisSize:
                                                       MainAxisSize.min,
                                                   children: [
-                                                    _buildWelcomeBackAppBar(
-                                                        context),
+                                                    Text("lbl_welcome_back".tr,
+                                                        style: CustomTextStyles
+                                                            .headlineMediumSemiBold),
                                                     SizedBox(height: 11.v),
                                                     Text(
-                                                        "Please Log In And Lets Continue",
+                                                        "msg_please_log_in_and"
+                                                            .tr,
                                                         style: CustomTextStyles
                                                             .bodyMediumWhiteA700),
                                                     SizedBox(height: 29.v),
-                                                    Text("Log In",
+                                                    Text("lbl_log_in".tr,
                                                         style: theme.textTheme
                                                             .titleMedium),
                                                     SizedBox(height: 12.v),
                                                     CustomTextFormField(
-                                                        controller:
-                                                            idLabelController,
-                                                        hintText: "ID"),
+                                                        controller: controller
+                                                            .idLabelController,
+                                                        hintText: "lbl_id".tr),
                                                     SizedBox(height: 15.v),
                                                     CustomTextFormField(
-                                                        controller:
-                                                            passwordController,
-                                                        hintText: "Password",
+                                                        controller: controller
+                                                            .passwordController,
+                                                        hintText:
+                                                            "lbl_password".tr,
                                                         textInputAction:
                                                             TextInputAction
                                                                 .done,
                                                         textInputType:
                                                             TextInputType
                                                                 .visiblePassword,
+                                                        validator: (value) {
+                                                          if (value == null ||
+                                                              (!isValidPassword(
+                                                                  value,
+                                                                  isRequired:
+                                                                      true))) {
+                                                            return "err_msg_please_enter_valid_password"
+                                                                .tr;
+                                                          }
+                                                          return null;
+                                                        },
                                                         obscureText: true),
                                                     SizedBox(height: 16.v),
-                                                    _buildRememberMeCheckBox(
-                                                        context),
+                                                    _buildRememberMe(),
                                                     SizedBox(height: 23.v),
                                                     CustomElevatedButton(
-                                                        text: "Log In",
+                                                        text: "lbl_log_in".tr,
                                                         margin: EdgeInsets
                                                             .symmetric(
                                                                 horizontal:
@@ -121,10 +135,12 @@ class LoginPageScreen extends StatelessWidget {
                                                             .textTheme
                                                             .titleMedium!,
                                                         onPressed: () {
-                                                          onTapLogIn(context);
+                                                          onTapLogIn();
                                                         }),
                                                     SizedBox(height: 18.v),
-                                                    Text("Forgot Password?",
+                                                    Text(
+                                                        "msg_forgot_password"
+                                                            .tr,
                                                         style: theme.textTheme
                                                             .bodyLarge!
                                                             .copyWith(
@@ -142,14 +158,14 @@ class LoginPageScreen extends StatelessWidget {
                                                                       bottom:
                                                                           1.v),
                                                               child: Text(
-                                                                  "Need an Account? ",
+                                                                  "msg_need_an_account"
+                                                                      .tr,
                                                                   style: theme
                                                                       .textTheme
                                                                       .bodyLarge)),
                                                           GestureDetector(
                                                               onTap: () {
-                                                                onTapTxtSignUp(
-                                                                    context);
+                                                                onTapTxtSignUp();
                                                               },
                                                               child: Padding(
                                                                   padding: EdgeInsets
@@ -157,7 +173,8 @@ class LoginPageScreen extends StatelessWidget {
                                                                           left: 5
                                                                               .h),
                                                                   child: Text(
-                                                                      "SignUp",
+                                                                      "lbl_signup2"
+                                                                          .tr,
                                                                       style: CustomTextStyles
                                                                           .titleMediumPrimaryContainer)))
                                                         ])),
@@ -166,14 +183,15 @@ class LoginPageScreen extends StatelessWidget {
                                                         alignment: Alignment
                                                             .centerLeft,
                                                         child: Row(children: [
-                                                          Text("Need an ID?",
+                                                          Text(
+                                                              "lbl_need_an_id"
+                                                                  .tr,
                                                               style: theme
                                                                   .textTheme
                                                                   .bodyLarge),
                                                           GestureDetector(
                                                               onTap: () {
-                                                                onTapTxtSubscribe(
-                                                                    context);
+                                                                onTapTxtSubscribe();
                                                               },
                                                               child: Padding(
                                                                   padding: EdgeInsets
@@ -181,7 +199,8 @@ class LoginPageScreen extends StatelessWidget {
                                                                           left: 5
                                                                               .h),
                                                                   child: Text(
-                                                                      "Subscribe",
+                                                                      "lbl_subscribe"
+                                                                          .tr,
                                                                       style: CustomTextStyles
                                                                           .titleMediumPrimaryContainer)))
                                                         ]))
@@ -190,39 +209,37 @@ class LoginPageScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  PreferredSizeWidget _buildWelcomeBackAppBar(BuildContext context) {
-    return CustomAppBar(
-        height: 42.v,
-        centerTitle: true,
-        title: AppbarTitle(text: "Welcome Back!"));
-  }
-
-  /// Section Widget
-  Widget _buildRememberMeCheckBox(BuildContext context) {
+  Widget _buildRememberMe() {
     return Align(
         alignment: Alignment.centerLeft,
-        child: CustomCheckboxButton(
+        child: Obx(() => CustomCheckboxButton(
             alignment: Alignment.centerLeft,
-            text: "Remember Me",
-            value: rememberMeCheckBox,
+            text: "lbl_remember_me".tr,
+            value: controller.rememberMe.value,
             textStyle: theme.textTheme.bodyLarge,
             onChange: (value) {
-              rememberMeCheckBox = value;
-            }));
+              controller.rememberMe.value = value;
+            })));
   }
 
   /// Navigates to the homeContainerScreen when the action is triggered.
-  onTapLogIn(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.homeContainerScreen);
+  onTapLogIn() {
+    Get.toNamed(
+      AppRoutes.homeContainerScreen,
+    );
   }
 
   /// Navigates to the signupPageScreen when the action is triggered.
-  onTapTxtSignUp(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.signupPageScreen);
+  onTapTxtSignUp() {
+    Get.toNamed(
+      AppRoutes.signupPageScreen,
+    );
   }
 
   /// Navigates to the subscriptionScreen when the action is triggered.
-  onTapTxtSubscribe(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.subscriptionScreen);
+  onTapTxtSubscribe() {
+    Get.toNamed(
+      AppRoutes.subscriptionScreen,
+    );
   }
 }

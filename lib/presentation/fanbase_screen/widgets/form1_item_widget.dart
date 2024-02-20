@@ -1,123 +1,75 @@
-import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:joel_s_application7/core/app_export.dart';
-import 'package:joel_s_application7/presentation/gift_available_rewards_screen/gift_available_rewards_screen.dart';
+import 'package:get/get_core/src/get_main.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 
-//
-// class Form1ItemWidget extends StatelessWidget {
-//   const Form1ItemWidget({Key? key})
-//       : super(
-//           key: key,
-//         );
+import '../controller/fanbase_controller.dart';
+import '../models/form1_item_model.dart';
+import 'package:flutter/material.dart';
+//import 'package:joel_s_application10/core/app_export.dart';
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return Card(
-//       clipBehavior: Clip.antiAlias,
-//       elevation: 0,
-//       margin: EdgeInsets.all(0),
-//       shape: RoundedRectangleBorder(
-//         borderRadius: BorderRadiusStyle.roundedBorder10,
-//       ),
-//       child: Container(
-//         height: 80.v,
-//         width: 160.h,
-//         decoration: BoxDecoration(
-//           borderRadius: BorderRadiusStyle.roundedBorder10,
-//         ),
-//         child: Stack(
-//           alignment: Alignment.center,
-//           children: [
-//             CustomImageView(
-//               imagePath: ImageConstant.imgRetroMicrophon,
-//               height: 80.v,
-//               width: 160.h,
-//               radius: BorderRadius.circular(
-//                 10.h,
-//               ),
-//               alignment: Alignment.center,
-//             ),
-//             Align(
-//               alignment: Alignment.center,
-//               child: Container(
-//                 height: 40.adaptSize,
-//                 width: 40.adaptSize,
-//                 decoration: AppDecoration.fillBlackC.copyWith(
-//                   borderRadius: BorderRadiusStyle.roundedBorder20,
-//                 ),
-//                 child: CustomImageView(
-//                   imagePath: ImageConstant.imgOverflowMenu,
-//                   height: 40.adaptSize,
-//                   width: 40.adaptSize,
-//                   radius: BorderRadius.circular(
-//                     20.h,
-//                   ),
-//                   alignment: Alignment.center,
-//                 ),
-//               ),
-//             ),
-//           ],
-//         ),
-//       ),
-//     );
-//   }
-// }
-
-//Second
-
+// ignore: must_be_immutable
 class Form1ItemWidget extends StatelessWidget {
-  const Form1ItemWidget({Key? key}) : super(key: key);
+  Form1ItemWidget(
+    this.form1ItemModelObj, {
+    Key? key,
+  }) : super(
+          key: key,
+        );
+
+  Form1ItemModel form1ItemModelObj;
+
+  var controller = Get.find<FanbaseController>();
 
   @override
   Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        // Use Get.to() to navigate to another screen when the card is tapped
-        Get.to(() => GiftAvailableRewardsScreen());
-        //giftAvailableRewardsScreen());
-      },
-      child: Card(
-        clipBehavior: Clip.antiAlias,
-        elevation: 0,
-        margin: EdgeInsets.all(0),
-        shape: RoundedRectangleBorder(
+    return Card(
+      clipBehavior: Clip.antiAlias,
+      elevation: 0,
+      margin: EdgeInsets.all(0),
+      shape: RoundedRectangleBorder(
+        borderRadius: BorderRadiusStyle.roundedBorder10,
+      ),
+      child: Container(
+        height: 80.v,
+        width: 160.h,
+        decoration: BoxDecoration(
           borderRadius: BorderRadiusStyle.roundedBorder10,
         ),
-        child: Container(
-          height: 80.v,
-          width: 160.h,
-          decoration: BoxDecoration(
-            borderRadius: BorderRadiusStyle.roundedBorder10,
-          ),
-          child: Stack(
-            alignment: Alignment.center,
-            children: [
-              CustomImageView(
-                imagePath: ImageConstant.imgRetroMicrophon,
-                height: 80.v,
-                width: 160.h,
-                radius: BorderRadius.circular(10.h),
-                alignment: Alignment.center,
+        child: Stack(
+          alignment: Alignment.center,
+          children: [
+            CustomImageView(
+              imagePath: ImageConstant.imgRetroMicrophon,
+              height: 80.v,
+              width: 160.h,
+              radius: BorderRadius.circular(
+                10.h,
               ),
-              Align(
-                alignment: Alignment.center,
-                child: Container(
+              alignment: Alignment.center,
+            ),
+            Align(
+              alignment: Alignment.center,
+              child: Container(
+                height: 40.adaptSize,
+                width: 40.adaptSize,
+                decoration: AppDecoration.fillBlack9004c1.copyWith(
+                  borderRadius: BorderRadiusStyle.roundedBorder20,
+                ),
+                child: CustomImageView(
+                  imagePath: ImageConstant.imgOverflowMenu,
                   height: 40.adaptSize,
                   width: 40.adaptSize,
-                  decoration: AppDecoration.fillBlackC.copyWith(
-                    borderRadius: BorderRadiusStyle.roundedBorder20,
+                  radius: BorderRadius.circular(
+                    20.h,
                   ),
-                  child: CustomImageView(
-                    imagePath: ImageConstant.imgOverflowMenu,
-                    height: 40.adaptSize,
-                    width: 40.adaptSize,
-                    radius: BorderRadius.circular(20.h),
-                    alignment: Alignment.center,
-                  ),
+                  alignment: Alignment.center,
                 ),
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

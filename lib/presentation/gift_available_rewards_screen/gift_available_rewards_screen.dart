@@ -1,17 +1,26 @@
-import '../gift_available_rewards_screen/widgets/rewardnotification_item_widget.dart';
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
-import 'package:joel_s_application7/presentation/contestants_page/contestants_page.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
 import 'package:joel_s_application7/presentation/home_page/home_page.dart';
+import 'package:joel_s_application7/routes/app_routes.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
 import 'package:joel_s_application7/widgets/custom_bottom_bar.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
 
-class GiftAvailableRewardsScreen extends StatelessWidget {
-  GiftAvailableRewardsScreen({Key? key})
+import '../gift_available_rewards_screen/widgets/rewardnotification_item_widget.dart';
+import 'controller/gift_available_rewards_controller.dart';
+import 'models/rewardnotification_item_model.dart';
+import 'package:flutter/material.dart';
+
+// ignore_for_file: must_be_immutable
+class GiftAvailableRewardsScreen
+    extends GetWidget<GiftAvailableRewardsController> {
+  const GiftAvailableRewardsScreen({Key? key})
       : super(
           key: key,
         );
-
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +44,12 @@ class GiftAvailableRewardsScreen extends StatelessWidget {
                         height: 809.v,
                         width: double.maxFinite,
                         decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(
-                            50.h,
-                          ),
                           gradient: LinearGradient(
                             begin: Alignment(0, 0),
                             end: Alignment(1, 1),
                             colors: [
                               appTheme.lightBlueA700.withOpacity(0.65),
-                              theme.colorScheme.onPrimaryContainer
-                                  .withOpacity(0.65),
+                              theme.colorScheme.primary.withOpacity(0.65),
                             ],
                           ),
                         ),
@@ -52,21 +57,90 @@ class GiftAvailableRewardsScreen extends StatelessWidget {
                     ),
                     Align(
                       alignment: Alignment.topCenter,
-                      child: Container(
-                        margin: EdgeInsets.only(
-                          left: 25.h,
-                          top: 26.v,
-                          right: 25.h,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadiusStyle.roundedBorder10,
-                        ),
+                      child: Padding(
+                        padding: EdgeInsets.fromLTRB(25.h, 26.v, 25.h, 94.v),
                         child: Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            _buildMoneyZoneForm(context),
+                            _buildMoneyZone(),
                             SizedBox(height: 10.v),
-                            _buildRewardNotification(context),
+                            _buildRewardNotification(),
+                            Spacer(
+                              flex: 5,
+                            ),
+                            Spacer(
+                              flex: 6,
+                            ),
+                            Spacer(
+                              flex: 10,
+                            ),
+                            Spacer(
+                              flex: 10,
+                            ),
+                            Spacer(
+                              flex: 14,
+                            ),
+                            Spacer(
+                              flex: 14,
+                            ),
+                            Spacer(
+                              flex: 18,
+                            ),
+                            Spacer(
+                              flex: 19,
+                            ),
+                            SizedBox(height: 34.v),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_an_mz_reward".tr,
+                              price: "msg_you_have_earned".tr,
+                              cashout: "lbl_cashout".tr,
+                            ),
+                            SizedBox(height: 45.v),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_an_mz_reward".tr,
+                              price: "msg_you_have_earned".tr,
+                              cashout: "lbl_cashout".tr,
+                            ),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_a_gz_reward".tr,
+                              price: "msg_you_have_can_redeem".tr,
+                              cashout: "lbl_redeem".tr,
+                            ),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_a_gz_reward".tr,
+                              price: "msg_you_have_can_redeem".tr,
+                              cashout: "lbl_redeem".tr,
+                            ),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_a_gz_reward".tr,
+                              price: "msg_you_have_can_redeem".tr,
+                              cashout: "lbl_redeem".tr,
+                            ),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_a_gz_reward".tr,
+                              price: "msg_you_have_can_redeem".tr,
+                              cashout: "lbl_redeem".tr,
+                            ),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_a_gz_reward".tr,
+                              price: "msg_you_have_can_redeem".tr,
+                              cashout: "lbl_redeem".tr,
+                            ),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_a_gz_reward".tr,
+                              price: "msg_you_have_can_redeem".tr,
+                              cashout: "lbl_redeem".tr,
+                            ),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_a_gz_reward".tr,
+                              price: "msg_you_have_can_redeem".tr,
+                              cashout: "lbl_redeem".tr,
+                            ),
+                            _buildForm1(
+                              youHaveAnMZReward: "msg_you_have_a_gz_reward".tr,
+                              price: "msg_you_have_can_redeem".tr,
+                              cashout: "lbl_redeem".tr,
+                            ),
                           ],
                         ),
                       ),
@@ -83,30 +157,28 @@ class GiftAvailableRewardsScreen extends StatelessWidget {
             ],
           ),
         ),
-        bottomNavigationBar: _buildBottomBar(context),
+        bottomNavigationBar: _buildBottomBar(),
       ),
     );
   }
 
   /// Section Widget
-  Widget _buildMoneyZoneForm(BuildContext context) {
+  Widget _buildMoneyZone() {
     return Row(
       mainAxisAlignment: MainAxisAlignment.center,
       children: [
         Padding(
           padding: EdgeInsets.only(right: 5.h),
-          child: _buildGiftZoneForm(
-            context,
-            giftZoneText: "Money Zone",
-            pointsCounterText: "Points: 3000",
+          child: _buildForm(
+            giftZone: "lbl_money_zone".tr,
+            pointsCounter: "lbl_points_3000".tr,
           ),
         ),
         Padding(
           padding: EdgeInsets.only(left: 5.h),
-          child: _buildGiftZoneForm(
-            context,
-            giftZoneText: "Gift Zone",
-            pointsCounterText: "Points: 5000",
+          child: _buildForm(
+            giftZone: "lbl_gift_zone".tr,
+            pointsCounter: "lbl_points_5000".tr,
           ),
         ),
       ],
@@ -114,40 +186,48 @@ class GiftAvailableRewardsScreen extends StatelessWidget {
   }
 
   /// Section Widget
-  Widget _buildRewardNotification(BuildContext context) {
-    return ListView.separated(
-      physics: NeverScrollableScrollPhysics(),
-      shrinkWrap: true,
-      separatorBuilder: (
-        context,
-        index,
-      ) {
-        return SizedBox(
-          height: 10.v,
-        );
-      },
-      itemCount: 7,
-      itemBuilder: (context, index) {
-        return RewardnotificationItemWidget();
-      },
+  Widget _buildRewardNotification() {
+    return Obx(
+      () => ListView.separated(
+        physics: NeverScrollableScrollPhysics(),
+        shrinkWrap: true,
+        separatorBuilder: (
+          context,
+          index,
+        ) {
+          return SizedBox(
+            height: 10.v,
+          );
+        },
+        itemCount: controller.giftAvailableRewardsModelObj.value
+            .rewardnotificationItemList.value.length,
+        itemBuilder: (context, index) {
+          RewardnotificationItemModel model = controller
+              .giftAvailableRewardsModelObj
+              .value
+              .rewardnotificationItemList
+              .value[index];
+          return RewardnotificationItemWidget(
+            model,
+          );
+        },
+      ),
     );
   }
 
   /// Section Widget
-  Widget _buildBottomBar(BuildContext context) {
+  Widget _buildBottomBar() {
     return CustomBottomBar(
       onChanged: (BottomBarEnum type) {
-        Navigator.pushNamed(
-            navigatorKey.currentContext!, getCurrentRoute(type));
+        Get.toNamed(getCurrentRoute(type), id: 1);
       },
     );
   }
 
   /// Common widget
-  Widget _buildGiftZoneForm(
-    BuildContext context, {
-    required String giftZoneText,
-    required String pointsCounterText,
+  Widget _buildForm({
+    required String giftZone,
+    required String pointsCounter,
   }) {
     return Expanded(
       child: SizedBox(
@@ -164,14 +244,14 @@ class GiftAvailableRewardsScreen extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                giftZoneText,
+                giftZone,
                 style: theme.textTheme.titleMedium!.copyWith(
                   color: appTheme.whiteA700,
                 ),
               ),
               SizedBox(height: 2.v),
               Text(
-                pointsCounterText,
+                pointsCounter,
                 style: theme.textTheme.bodySmall!.copyWith(
                   color: appTheme.whiteA700.withOpacity(0.2),
                 ),
@@ -183,29 +263,89 @@ class GiftAvailableRewardsScreen extends StatelessWidget {
     );
   }
 
-  // Handling route based on bottom click actions
+  /// Common widget
+  Widget _buildForm1({
+    required String youHaveAnMZReward,
+    required String price,
+    required String cashout,
+  }) {
+    return Container(
+      padding: EdgeInsets.symmetric(horizontal: 16.h),
+      decoration: AppDecoration.fillGray,
+      child: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          CustomImageView(
+            imagePath: ImageConstant.imgGroup12,
+            height: 1.v,
+            width: 72.h,
+            margin: EdgeInsets.only(top: 22.v),
+          ),
+          Padding(
+            padding: EdgeInsets.only(
+              top: 10.v,
+              right: 10.h,
+            ),
+            child: Column(
+              children: [
+                Text(
+                  youHaveAnMZReward,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.titleMedium!.copyWith(
+                    color: appTheme.whiteA700,
+                  ),
+                ),
+                SizedBox(height: 85.v),
+                Text(
+                  price,
+                  textAlign: TextAlign.center,
+                  style: theme.textTheme.bodySmall!.copyWith(
+                    color: appTheme.whiteA700.withOpacity(0.2),
+                  ),
+                ),
+                SizedBox(height: 124.v),
+                Container(
+                  margin: EdgeInsets.symmetric(horizontal: 32.h),
+                  padding: EdgeInsets.symmetric(horizontal: 48.h),
+                  decoration: AppDecoration.fillLightBlueA,
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      SizedBox(height: 5.v),
+                      Text(
+                        cashout,
+                        textAlign: TextAlign.center,
+                        style: theme.textTheme.labelLarge!.copyWith(
+                          color: appTheme.gray50,
+                        ),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+
+  ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Settings:
+      case BottomBarEnum.Home:
         return AppRoutes.homePage;
-      case BottomBarEnum.User:
-        return AppRoutes.contestantsPage;
-      case BottomBarEnum.Thumbsup:
-        return "/";
-      case BottomBarEnum.Info:
-        return "/";
       default:
         return "/";
     }
   }
 
-  //Handling page based on route
+  ///Handling page based on route
   Widget getCurrentPage(String currentRoute) {
     switch (currentRoute) {
       case AppRoutes.homePage:
         return HomePage();
-      case AppRoutes.contestantsPage:
-        return ContestantsPage();
       default:
         return DefaultWidget();
     }

@@ -19,7 +19,12 @@ class ImageConstant {
 
   static String imgAward = '$imagePath/img_award.svg';
 
+  // Subscription images
+  static String imgSettings = '$imagePath/img_settings.svg';
+
   // Voting images
+  static String imgToRight = '$imagePath/img_to_right.svg';
+
   static String imgPngtreeManWea = '$imagePath/img_pngtree_man_wea.png';
 
   // Fanbase images
@@ -41,7 +46,7 @@ class ImageConstant {
 
   static String imgImage2 = '$imagePath/img_image_2.png';
 
-  static String imgGroup1 = '$imagePath/img_group_1.svg';
+  static String imgGroup5 = '$imagePath/img_group_5.svg';
 
   static String imgSignupPage = '$imagePath/img_signup_page.png';
 
@@ -49,7 +54,8 @@ class ImageConstant {
 
   static String imgCalculator = '$imagePath/img_calculator.svg';
 
-  static String imgSettings = '$imagePath/img_settings.svg';
+  static String imgSettingsBlueGray400 =
+      '$imagePath/img_settings_blue_gray_400.svg';
 
   static String imgUser = '$imagePath/img_user.svg';
 

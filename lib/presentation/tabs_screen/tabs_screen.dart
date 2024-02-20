@@ -1,16 +1,23 @@
-import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
-import 'package:joel_s_application7/presentation/contestants_page/contestants_page.dart';
-import 'package:joel_s_application7/presentation/home_page/home_page.dart';
-import 'package:joel_s_application7/widgets/custom_bottom_bar.dart';
-import 'package:joel_s_application7/widgets/custom_outlined_button.dart';
+import 'package:get/get.dart';
+import 'package:get/get_state_manager/src/simple/get_view.dart';
+import 'package:joel_s_application7/core/utils/image_constant.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
 import 'package:joel_s_application7/presentation/collection_dialog/collection_dialog.dart';
+import 'package:joel_s_application7/presentation/collection_dialog/controller/collection_controller.dart';
+import 'package:joel_s_application7/presentation/home_page/home_page.dart';
+import 'package:joel_s_application7/routes/app_routes.dart';
+import 'package:joel_s_application7/theme/app_decoration.dart';
+import 'package:joel_s_application7/theme/custom_button_style.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/widgets/custom_bottom_bar.dart';
+import 'package:joel_s_application7/widgets/custom_image_view.dart';
+import 'package:joel_s_application7/widgets/custom_outlined_button.dart';
 
-//
-class TabsScreen extends StatelessWidget {
-  TabsScreen({Key? key}) : super(key: key);
+import 'controller/tabs_controller.dart';
+import 'package:flutter/material.dart';
 
-  GlobalKey<NavigatorState> navigatorKey = GlobalKey();
+class TabsScreen extends GetWidget<TabsController> {
+  const TabsScreen({Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
@@ -19,30 +26,28 @@ class TabsScreen extends StatelessWidget {
             body: SizedBox(
                 width: double.maxFinite,
                 child: Column(children: [
-                  _buildHomeTabs(context),
+                  _buildTabsHome(),
                   SizedBox(height: 33.v),
-                  _buildContestantsTabs(context),
+                  _buildTabsContestants(),
                   SizedBox(height: 33.v),
-                  _buildFanbaseTabs(context),
+                  _buildTabsFanbase(),
                   SizedBox(height: 33.v),
-                  _buildGiftsTabs(context),
+                  _buildTabsGifts(),
                   SizedBox(height: 5.v)
                 ])),
-            bottomNavigationBar: _buildBottomBar(context)));
+            bottomNavigationBar: _buildBottomBar()));
   }
 
   /// Section Widget
-  Widget _buildHomeTabs(BuildContext context) {
+  Widget _buildTabsHome() {
     return Container(
-      width: double.maxFinite,
-      padding: EdgeInsets.symmetric(vertical: 15.v),
-      decoration: AppDecoration.gradientGrayToWhiteA,
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-        children: [
+        width: double.maxFinite,
+        padding: EdgeInsets.symmetric(vertical: 15.v),
+        decoration: AppDecoration.gradientGrayToWhiteA,
+        child: Row(mainAxisAlignment: MainAxisAlignment.spaceEvenly, children: [
           CustomOutlinedButton(
               width: 140.h,
-              text: "Home",
+              text: "lbl_home".tr,
               leftIcon: Container(
                   margin: EdgeInsets.only(right: 10.h),
                   decoration:
@@ -54,7 +59,7 @@ class TabsScreen extends StatelessWidget {
               buttonStyle: CustomButtonStyles.outlinePink,
               buttonTextStyle: CustomTextStyles.titleSmallPink300),
           CustomImageView(
-              imagePath: ImageConstant.imgSettings,
+              imagePath: ImageConstant.imgSettingsBlueGray400,
               height: 40.adaptSize,
               width: 40.adaptSize),
           CustomImageView(
@@ -62,29 +67,27 @@ class TabsScreen extends StatelessWidget {
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgUser(context);
+                onTapImgUser();
               }),
           CustomImageView(
               imagePath: ImageConstant.imgThumbsUp,
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgThumbsUp(context);
+                onTapImgThumbsUp();
               }),
           CustomImageView(
               imagePath: ImageConstant.imgInfo,
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgInfo(context);
+                onTapImgInfo();
               })
-        ],
-      ),
-    );
+        ]));
   }
 
   /// Section Widget
-  Widget _buildContestantsTabs(BuildContext context) {
+  Widget _buildTabsContestants() {
     return Container(
         width: double.maxFinite,
         padding: EdgeInsets.symmetric(vertical: 15.v),
@@ -95,7 +98,7 @@ class TabsScreen extends StatelessWidget {
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgImage(context);
+                onTapImgImage();
               }),
           Container(
               padding: EdgeInsets.fromLTRB(5.h, 9.v, 5.h, 8.v),
@@ -108,7 +111,7 @@ class TabsScreen extends StatelessWidget {
                     width: 31.h),
                 Padding(
                     padding: EdgeInsets.only(left: 10.h),
-                    child: Text("Contestants",
+                    child: Text("lbl_contestants".tr,
                         style: CustomTextStyles.titleSmallPink300))
               ])),
           CustomImageView(
@@ -116,27 +119,27 @@ class TabsScreen extends StatelessWidget {
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgUser1(context);
+                onTapImgUser1();
               }),
           CustomImageView(
               imagePath: ImageConstant.imgThumbsUp,
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgThumbsUp1(context);
+                onTapImgThumbsUp1();
               }),
           CustomImageView(
               imagePath: ImageConstant.imgInfo,
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgInfo1(context);
+                onTapImgInfo1();
               })
         ]));
   }
 
   /// Section Widget
-  Widget _buildFanbaseTabs(BuildContext context) {
+  Widget _buildTabsFanbase() {
     return Container(
         width: double.maxFinite,
         padding: EdgeInsets.symmetric(vertical: 15.v),
@@ -147,15 +150,15 @@ class TabsScreen extends StatelessWidget {
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgImage1(context);
+                onTapImgImage1();
               }),
           CustomImageView(
-              imagePath: ImageConstant.imgSettings,
+              imagePath: ImageConstant.imgSettingsBlueGray400,
               height: 40.adaptSize,
               width: 40.adaptSize),
           CustomOutlinedButton(
               width: 140.h,
-              text: "Fan Base",
+              text: "lbl_fan_base".tr,
               leftIcon: Container(
                   margin: EdgeInsets.only(right: 10.h),
                   child: CustomImageView(
@@ -169,20 +172,20 @@ class TabsScreen extends StatelessWidget {
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgThumbsUp2(context);
+                onTapImgThumbsUp2();
               }),
           CustomImageView(
               imagePath: ImageConstant.imgInfo,
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgInfo2(context);
+                onTapImgInfo2();
               })
         ]));
   }
 
   /// Section Widget
-  Widget _buildGiftsTabs(BuildContext context) {
+  Widget _buildTabsGifts() {
     return Container(
         width: double.maxFinite,
         padding: EdgeInsets.symmetric(vertical: 15.v),
@@ -193,10 +196,10 @@ class TabsScreen extends StatelessWidget {
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgImage2(context);
+                onTapImgImage2();
               }),
           CustomImageView(
-              imagePath: ImageConstant.imgSettings,
+              imagePath: ImageConstant.imgSettingsBlueGray400,
               height: 40.adaptSize,
               width: 40.adaptSize),
           CustomImageView(
@@ -204,11 +207,11 @@ class TabsScreen extends StatelessWidget {
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgUser2(context);
+                onTapImgUser2();
               }),
           CustomOutlinedButton(
               width: 140.h,
-              text: "Gifts",
+              text: "lbl_gifts".tr,
               leftIcon: Container(
                   margin: EdgeInsets.only(right: 10.h),
                   child: CustomImageView(
@@ -222,29 +225,23 @@ class TabsScreen extends StatelessWidget {
               height: 40.adaptSize,
               width: 40.adaptSize,
               onTap: () {
-                onTapImgInfo3(context);
+                onTapImgInfo3();
               })
         ]));
   }
 
   /// Section Widget
-  Widget _buildBottomBar(BuildContext context) {
+  Widget _buildBottomBar() {
     return CustomBottomBar(onChanged: (BottomBarEnum type) {
-      Navigator.pushNamed(navigatorKey.currentContext!, getCurrentRoute(type));
+      Get.toNamed(getCurrentRoute(type), id: 1);
     });
   }
 
   ///Handling route based on bottom click actions
   String getCurrentRoute(BottomBarEnum type) {
     switch (type) {
-      case BottomBarEnum.Settings:
+      case BottomBarEnum.Home:
         return AppRoutes.homePage;
-      case BottomBarEnum.User:
-        return AppRoutes.contestantsPage;
-      case BottomBarEnum.Thumbsup:
-        return "/";
-      case BottomBarEnum.Info:
-        return "/";
       default:
         return "/";
     }
@@ -255,103 +252,127 @@ class TabsScreen extends StatelessWidget {
     switch (currentRoute) {
       case AppRoutes.homePage:
         return HomePage();
-      case AppRoutes.contestantsPage:
-        return ContestantsPage();
       default:
         return DefaultWidget();
     }
   }
 
   /// Navigates to the fanbaseScreen when the action is triggered.
-  onTapImgUser(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.fanbaseScreen);
+  onTapImgUser() {
+    Get.toNamed(
+      AppRoutes.fanbaseScreen,
+    );
   }
 
   /// Navigates to the giftScreen when the action is triggered.
-  onTapImgThumbsUp(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.giftScreen);
+  onTapImgThumbsUp() {
+    Get.toNamed(
+      AppRoutes.giftScreen,
+    );
   }
 
   /// Displays a dialog with the [CollectionDialog] content.
-  onTapImgInfo(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              content: CollectionDialog(),
-              backgroundColor: Colors.transparent,
-              contentPadding: EdgeInsets.zero,
-              insetPadding: const EdgeInsets.only(left: 0),
-            ));
+  onTapImgInfo() {
+    Get.dialog(AlertDialog(
+      backgroundColor: Colors.transparent,
+      contentPadding: EdgeInsets.zero,
+      insetPadding: const EdgeInsets.only(left: 0),
+      content: CollectionDialog(
+        Get.put(
+          CollectionController(),
+        ),
+      ),
+    ));
   }
 
   /// Navigates to the homeContainerScreen when the action is triggered.
-  onTapImgImage(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.homeContainerScreen);
+  onTapImgImage() {
+    Get.toNamed(
+      AppRoutes.homeContainerScreen,
+    );
   }
 
   /// Navigates to the fanbaseScreen when the action is triggered.
-  onTapImgUser1(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.fanbaseScreen);
+  onTapImgUser1() {
+    Get.toNamed(
+      AppRoutes.fanbaseScreen,
+    );
   }
 
   /// Navigates to the giftScreen when the action is triggered.
-  onTapImgThumbsUp1(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.giftScreen);
+  onTapImgThumbsUp1() {
+    Get.toNamed(
+      AppRoutes.giftScreen,
+    );
   }
 
   /// Displays a dialog with the [CollectionDialog] content.
-  onTapImgInfo1(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              content: CollectionDialog(),
-              backgroundColor: Colors.transparent,
-              contentPadding: EdgeInsets.zero,
-              insetPadding: const EdgeInsets.only(left: 0),
-            ));
+  onTapImgInfo1() {
+    Get.dialog(AlertDialog(
+      backgroundColor: Colors.transparent,
+      contentPadding: EdgeInsets.zero,
+      insetPadding: const EdgeInsets.only(left: 0),
+      content: CollectionDialog(
+        Get.put(
+          CollectionController(),
+        ),
+      ),
+    ));
   }
 
   /// Navigates to the homeContainerScreen when the action is triggered.
-  onTapImgImage1(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.homeContainerScreen);
+  onTapImgImage1() {
+    Get.toNamed(
+      AppRoutes.homeContainerScreen,
+    );
   }
 
   /// Navigates to the giftScreen when the action is triggered.
-  onTapImgThumbsUp2(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.giftScreen);
+  onTapImgThumbsUp2() {
+    Get.toNamed(
+      AppRoutes.giftScreen,
+    );
   }
 
   /// Displays a dialog with the [CollectionDialog] content.
-  onTapImgInfo2(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              content: CollectionDialog(),
-              backgroundColor: Colors.transparent,
-              contentPadding: EdgeInsets.zero,
-              insetPadding: const EdgeInsets.only(left: 0),
-            ));
+  onTapImgInfo2() {
+    Get.dialog(AlertDialog(
+      backgroundColor: Colors.transparent,
+      contentPadding: EdgeInsets.zero,
+      insetPadding: const EdgeInsets.only(left: 0),
+      content: CollectionDialog(
+        Get.put(
+          CollectionController(),
+        ),
+      ),
+    ));
   }
 
   /// Navigates to the homeContainerScreen when the action is triggered.
-  onTapImgImage2(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.homeContainerScreen);
+  onTapImgImage2() {
+    Get.toNamed(
+      AppRoutes.homeContainerScreen,
+    );
   }
 
   /// Navigates to the fanbaseScreen when the action is triggered.
-  onTapImgUser2(BuildContext context) {
-    Navigator.pushNamed(context, AppRoutes.fanbaseScreen);
+  onTapImgUser2() {
+    Get.toNamed(
+      AppRoutes.fanbaseScreen,
+    );
   }
 
   /// Displays a dialog with the [CollectionDialog] content.
-  onTapImgInfo3(BuildContext context) {
-    showDialog(
-        context: context,
-        builder: (_) => AlertDialog(
-              content: CollectionDialog(),
-              backgroundColor: Colors.transparent,
-              contentPadding: EdgeInsets.zero,
-              insetPadding: const EdgeInsets.only(left: 0),
-            ));
+  onTapImgInfo3() {
+    Get.dialog(AlertDialog(
+      backgroundColor: Colors.transparent,
+      contentPadding: EdgeInsets.zero,
+      insetPadding: const EdgeInsets.only(left: 0),
+      content: CollectionDialog(
+        Get.put(
+          CollectionController(),
+        ),
+      ),
+    ));
   }
 }

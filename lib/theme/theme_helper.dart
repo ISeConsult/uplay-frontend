@@ -1,12 +1,15 @@
 import 'dart:ui';
 import 'package:flutter/material.dart';
+import 'package:joel_s_application7/core/utils/pref_utils.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
 import '../../core/app_export.dart';
-
-String _appTheme = "primary";
 
 /// Helper class for managing themes and colors.
 class ThemeHelper {
-  // A map of custom color themes supported by the app
+  // The current app theme
+  var _appTheme = PrefUtils().getThemeData();
+
+// A map of custom color themes supported by the app
   Map<String, PrimaryColors> _supportedCustomColor = {
     'primary': PrimaryColors()
   };
@@ -18,7 +21,8 @@ class ThemeHelper {
 
   /// Changes the app theme to [_newTheme].
   void changeTheme(String _newTheme) {
-    _appTheme = _newTheme;
+    PrefUtils().setThemeData(_newTheme);
+    Get.forceAppUpdate();
   }
 
   /// Returns the primary colors for the current theme.
@@ -185,12 +189,12 @@ class ColorSchemes {
     primaryContainer: Color(0XFF0084FF),
 
     // Error colors
-    errorContainer: Color(0XFF1A2246),
+    errorContainer: Color(0XE21A2246),
     onErrorContainer: Color(0X3300FFD1),
 
     // On colors(text colors)
     onPrimary: Color(0XFF48BEF9),
-    onPrimaryContainer: Color(0XFF001A8B),
+    onPrimaryContainer: Color(0XB2001A8B),
   );
 }
 
@@ -212,6 +216,9 @@ class PrimaryColors {
   Color get gray40033 => Color(0X33BABABA);
   Color get gray50 => Color(0XFFFBF9FA);
 
+  // GrayEf
+  Color get gray50Ef => Color(0XEFF2F9FF);
+
   // LightBlue
   Color get lightBlueA700 => Color(0XFF018AF2);
 
@@ -224,6 +231,9 @@ class PrimaryColors {
 
   // White
   Color get whiteA700 => Color(0XFFFFFFFF);
+
+  // WhiteAFe
+  Color get whiteA700Fe => Color(0XFEFEFEFF);
 }
 
 PrimaryColors get appTheme => ThemeHelper().themeColor();

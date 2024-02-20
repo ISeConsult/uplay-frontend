@@ -1,7 +1,11 @@
 import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:get/get.dart';
+//import 'package:joel_s_application10/core/app_export.dart';
+//import 'package:joel_s_application10/widgets/custom_search_view.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
 import 'package:joel_s_application7/widgets/custom_search_view.dart';
 
+// ignore: must_be_immutable
 class AppbarTitleSearchview extends StatelessWidget {
   AppbarTitleSearchview({
     Key? key,
@@ -25,7 +29,7 @@ class AppbarTitleSearchview extends StatelessWidget {
       child: CustomSearchView(
         width: 285.h,
         controller: controller,
-        hintText: "Search...",
+        hintText: "lbl_search".tr,
       ),
     );
   }

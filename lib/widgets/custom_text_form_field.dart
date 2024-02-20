@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:joel_s_application7/core/app_export.dart';
+import 'package:joel_s_application7/core/utils/size_utils.dart';
+import 'package:joel_s_application7/theme/custom_text_style.dart';
+import 'package:joel_s_application7/theme/theme_helper.dart';
+import '../core/app_export.dart';
 
 class CustomTextFormField extends StatelessWidget {
   CustomTextFormField({
@@ -79,16 +82,16 @@ class CustomTextFormField extends StatelessWidget {
     return alignment != null
         ? Align(
             alignment: alignment ?? Alignment.center,
-            child: textFormFieldWidget(context),
+            child: textFormFieldWidget,
           )
-        : textFormFieldWidget(context);
+        : textFormFieldWidget;
   }
 
-  Widget textFormFieldWidget(BuildContext context) => SizedBox(
+  Widget get textFormFieldWidget => SizedBox(
         width: width ?? double.maxFinite,
         child: TextFormField(
-          scrollPadding:
-              EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+          scrollPadding: EdgeInsets.only(
+              bottom: MediaQuery.of(Get.context!).viewInsets.bottom),
           controller: controller,
           focusNode: focusNode ?? FocusNode(),
           autofocus: autofocus!,
@@ -136,16 +139,5 @@ class CustomTextFormField extends StatelessWidget {
                 width: 1,
               ),
             ),
-      );
-}
-
-/// Extension on [CustomTextFormField] to facilitate inclusion of all types of border style etc
-extension TextFormFieldStyleHelper on CustomTextFormField {
-  static OutlineInputBorder get outlineGrayTL20 => OutlineInputBorder(
-        borderRadius: BorderRadius.circular(20.h),
-        borderSide: BorderSide(
-          color: appTheme.gray50.withOpacity(0.15),
-          width: 1,
-        ),
       );
 }
